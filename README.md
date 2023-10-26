@@ -1,9 +1,9 @@
 ## Introdução
 
 A linguagem R é uma linguagem estatística criada no departamento de Estatística da Universidade de Auckland, Nova Zelândia, por Ross Ihaka e Robert Gentleman, 
-na década de 1990. Vale dizer que o seu processo de criação foi embasado na linguagem de programação S.
+na década de 1990. Ela é utilizada na manipulação, análise e visualização de dados.
 
-#### Configuração Visual Studio   
+#### Configuração para uso no Visual Studio Code 
 Fontes:
 
 [https://code.visualstudio.com/docs/languages/r](https://code.visualstudio.com/docs/languages/r)

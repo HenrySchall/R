@@ -87,29 +87,6 @@ library(PerformanceAnalytics)
 library(nortest)
 library(scales)
 
-############################
-#### Instalando Pacotes ####
-############################
-
-# https://cran.r-project.org/
-# https://www.bioconductor.org/
-
-#######################################################
-######       Configuração Visual Studio         #######
-#######################################################
-
-# Configuração Visual Studio: https://code.visualstudio.com/docs/languages/r
-#https://fromthebottomoftheheap.net/2019/06/18/radian-console-for-r/
-
-# Rodar no Terminal R
-# install.packages("languageserver")
-# install.packages("httpgd")
-
-# Preferences (Open User Settings (JSON)
-# "editor.quickSuggestions.other": false
-# r.lsp.diagnostics": false
-# "r.plot.useHttpgd": true
-
 ##########################
 ### Criar CSV no Excel ###
 ##########################

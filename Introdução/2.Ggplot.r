@@ -10,12 +10,12 @@ https://ggplot2.tidyverse.org/reference/ggplot.html"
 getwd() #representa o diretório de trabalho atual do processo R
 setwd("C:/Users/henri/OneDrive/Códigos/R") #comando para definir o diretório de trabalho
 
-dados <- read.csv("C:/Users/henri/OneDrive/Códigos/R/1.Introdução/Dados/sell_bmw_eu.csv",
+dados <- read.csv("C:/Users/henri/OneDrive/Repositórios/R/Introdução/Dados/sell_bmw_eu.csv",
 header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
 
-# header = cabeçario
-# stringsAsFactors = considerar todas as caracteres como fatores
-# fileEncoding = "UTF-8" or "latin1"
+#header = cabeçario
+#stringsAsFactors = considerar todas as caracteres como fatores
+#fileEncoding = "UTF-8" or "latin1"
 
 # Analisando os dados
 View(dados)
@@ -25,7 +25,10 @@ glimpse(dados) # mostra o tipo de dado
 ######    Limpeza de dados   #######
 ####################################
 
-# Eliminar coluna 
+#######################
+### Eliminar coluna ###
+#######################
+
 dados <- dados %>% mutate(maker_key = NULL)
 dados <- dados %>% mutate(feature_1 = NULL)
 dados <- dados %>% mutate(feature_2 = NULL)
@@ -37,6 +40,7 @@ dados <- dados %>% mutate(feature_7 = NULL)
 dados <- dados %>% mutate(feature_8 = NULL)
 dados <- dados %>% mutate(model_key = NULL)
 
+dados
 head(dados) # mostrando os 6 primeiros
 
 ############################################
@@ -74,9 +78,21 @@ dados$sold_at <- as.Date(dados$sold_at, format = "%Y-%m-%d")
 
 glimpse(dados)
 
-############################
-#### Camadas do ggplot2 ####
-############################
+##########################
+### Eliminando valores ###
+##########################
+
+
+
+
+
+
+
+
+
+##########################
+### Camadas do ggplot2 ###
+##########################
 
 # 1. dados
 # 2. estética (aes) -> eixo X e eixo Y
@@ -93,7 +109,7 @@ glimpse(dados)
 #########################
 
 ### correlação ###
-ggplot(data = dados, aes(y = mileage, x = price)) + geom_point()
+ggplot(data = dados, aes(y = mileage, x = price)) + geom_point() #presença de outliers
 ### boxplot ###
 ggplot(data = dados) + geom_boxplot(aes(x = paint_color, y = price))
 ### barras ###
@@ -116,54 +132,46 @@ ggplot(data = dados) + geom_line(aes(x = mileage , y = model, color = model))
 ggplot(data = dados) + geom_line(aes(x = price, y = model, 
 shape = model), color = "darkred")
 
-#############
-### shape ###
-#############
+####################
+### shape & size ###
+####################
 
-# Atribuindo dentro do geom
-ggplot(data = dados) + geom_point(aes(x = paint_color, y = model, 
-color = model, shape = model))
+#http://www.sthda.com/english/wiki/ggplot2-point-shapes
 
-# Atribuindo fora do geom
-ggplot(data = dados) + geom_point(aes(x = mileage, y = model),
-shape = 18)
+ggplot(data = dados) + geom_point(aes(x = price, y = mileage, 
+color = paint_color))
 
-############
-### size ###
-############
+ggplot(data = dados) + geom_point(aes(x = price, y = mileage, 
+shape = car_type))
 
-# Atribuindo dentro do geom
+# dentro da aes -> tamanho definido pela variável
 ggplot(data = dados) + geom_line(aes(x = price, y = model, 
 color = model, size = price))
 
-# Atribuindo fora do geom
-ggplot(data = dados) + geom_point(aes(x = mileage, y = model),
+# fora da aes -> tamanho não é definido por uma variável
+ggplot(data = dados) + geom_point(aes(x = price, y = mileage),
 fill = "black", color = "purple", shape = 25, size = 1.5)
-
-# http://www.sthda.com/english/wiki/ggplot2-point-shapes
 
 #########################
 ### Usando mais geons ###
 #########################
 
-# Resumo:
-# data(aes()) + geom() + geom() -> MELHOR FORMA
-# data() + geom(aes()) + geom(aes())
-# A ordem dos geoms importa - Lógica do Photoshop
+#Resumo:
+#(data(aes()) + geom() + geom() -> MELHOR FORMA
+#data() + geom(aes()) + geom(aes())
+#A ordem dos geoms importa -> lógica camadas do Photoshop
 
 glimpse(dados)
 
-ggplot(data = dados,(aes(x = mileage, y = price)))+
-geom_point( color = "Black", shape = 16, size = 0.7) +
+ggplot(data = dados,(aes(x = price, y = engine_power)))+
+geom_point(color = "Black", shape = 16, size = 0.7) +
 geom_smooth(method = "lm") # smooth = Linha de tendência
 
-ggplot(data = dados,(aes(x = mileage, y = price))) +
+ggplot(data = dados,(aes(x = price, y = engine_power))) +
 geom_point(color = "Black", shape = 16, size = 0.7) +
 geom_smooth(method = "lm", se = FALSE, color = "Red", size = 0.5)
 
-help(geom_smooth)
-
-ggplot(data = dados, aes(x = price, y = mileage)) +
+ggplot(data = dados, aes(x = price, y = engine_power)) +
 geom_point(color = "Black", shape = 16, size = 0.7) +
 geom_smooth(method = "lm", se = F, size = 0.5, linetype = "dashed")
 
@@ -194,24 +202,20 @@ geom_smooth(method = "lm", se = F, color = "black", size = 0.5, aes(linetype = p
 
 
 
+
+
+
+
 ## Usando o geom para representar um "summary"
 ### (stat = summary) x stat_summary()
-
-
 ggplot(data = dados, aes(x = Genero, y = LucroLocal)) +
   geom_point(stat = "summary", fun = "mean")
-
-
 
 ggplot(data = dados, aes(x = Genero, y = LucroLocal)) +
   stat_summary(geom = "point", fun = "mean")
 
-
-
 ggplot(data = dados, aes(x = Genero, y = LucroLocal)) +
   stat_summary(geom = "point", fun = "median")
-
-
 
 ## Incluindo barras de erros (usando também o summary)
 

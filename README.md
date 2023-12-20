@@ -17,3 +17,4 @@ install.packages("httpgd")
 r.lsp.diagnostics": false
 "r.plot.useHttpgd": true
 ```
+### Conceitos Básicos Estatísticos

@@ -1,0 +1,245 @@
+---
+title: "<center> <h2> <b> Introdução à Econometria </b> </h2> </center>"
+author: "<center> Frank Magalhães de Pinho - IBMEC/MG </center>"
+linkcolor: blue
+output:
+  html_notebook:
+    fig_caption: yes
+    theme: cerulean
+  html_document:
+    df_print: paged
+  pdf_document: default
+nocite: |
+  @wooldridge2015introductory, @tsay2014introduction
+references:
+- author:
+  - family: Wooldridge
+    given: Jeffrey M
+  id: wooldridge2015introductory
+  issued:
+    year: 2015
+  publisher: Nelson Education
+  title: Introductory econometrics - A modern approach
+  type: book
+- author:
+  - family: Tsay
+    given: Ruey S
+  id: tsay2014introduction
+  issued:
+    year: 2014
+  publisher: John Wiley & Sons
+  title: An introduction to analysis of financial data with R
+  type: book
+graphics: yes
+---
+
+Este documento tem como objetivo contribuir para o entendimento básico sobre econometria. Neste sentido, apresenta como a teoria econômica está relacionada com a econometria (modelo econômico x modelo econométrico) e como a estrutura de dados econômicos define a abordagem econométrica a ser utilizada. No que tange aos dados, os seguintes tipos são abordados:
+
+* Corte Transversal
+* Série Temporal
+* Dados em Painel
+
+Basicamente, trata-se de um resumo do Capítulo 1 de @wooldridge2015introductory e maiores detalhes podem ser encontrados nesta referência.
+
+##### **TEORIA ECONÔMICA E ECONOMETRIA**
+
+Por meio da Econometria é possível avaliar empiricamente a teoria econômica e **explicar fatos passados, testar hipóteses, prever resultados de políticas ou eventos futuros e estimar relações entre variáveis econômicas**.
+
+Isso é viável porque, em geral, **há relações de equilíbrio de longo prazo entre variáveis econômicas**. Existem diversas aplicações da econometria, como por exemplo:
+
+* A previsão de importantes variáveis macroeconômicas, tais como taxas de juros, taxa de inflação e produto interno bruto (PIB);
+* Estudar o efeito de gastos públicos com escolas sobre o desempenho de estudantes;
+* Avaliar como o PIB, consumo, investimento e gastos governamentais são determinados simultaneamente no curto prazo. 
+
+Neste sentido, o ecconomista pode fazer uso de diversos campos da econometria de acordo com o fundamento econômico de interesse:
+
+* Econometria básica (regressão linear múltipla, ...)
+* Econometria de séries temporais (AR, MA, ARMA, ARIMA, ARCH, GARCH, VAR, VEC, ...)
+* Econometria não-paramétrica (regressão não-paramétrica, ....)
+* Microeconometria (dados em painel, ...)
+* Macroeconometria (DSGE, DSGE-VAR, VAR, VEC, ...)
+
+A econometria evoluiu como uma disciplina relacionada com a estatística e matemática, mas com enfoque em problemas inerentes à coleta e à análise de **dados econômicos não-experimentais** (dados não acumulados por meio de experimentos controlados de indivíduos, firmas ou segmentos da economia)[^1].
+
+[^1]: Por outro lado, **dados experimentais** são frequentemente coletados em ambientes de laboratório.
+
+##### **MODELO ECONÔMICO X MODELO ECONOMÉTRICO**
+
+Em alguns casos, especialmente aqueles que envolvem o teste de teorias econômicas, constrói-se um **modelo econômico** formal. Um modelo econômico consiste em equações matemáticas que descrevem várias relações. 
+
+Como exemplo, imagine que você seja contratado pelo governo do seu Estado para avaliar a eficácia de um programa de treinamento financiado com recursos públicos com as seguintes características:
+
+* Esse programa ensina aos trabalhores várias maneiras de como usar computadores no processo produtivo;
+* O programa, com duração de 20 semanas, oferece cursos fora do horário do expediente;
+* Qualquer trabalhador horista da produção pode participar, e a matrícula em todo o programa, ou parte dele, é voluntária. 
+
+Você deve determinar qual o efeito, se houver, do programa de treinamento sobre o salário-hora de cada trabalhador. Qual seria o modelo econômico para este problema?
+
+$$
+salárioh = f\left(educ,exper,treina \right)
+$$
+onde:
+
+* $salárioh$ é o salário-hora;
+* $educ$ representa os anos de educação formal;
+* $exper$ refere-se aos de experiência no mercado de trabalho;
+* $treina$ corresponde as semanas ocupadas em treinamento.
+
+**Hipótese:** Os trabalhadores são pagos de acordo com sua produtividade.
+
+Um modelo econométrico para o exemplo anterior seria:
+
+$$
+salárioh_{i} ={\beta}_{0}+{\beta}_{1}educ_{i}+{\beta}_{2}exper_{i}+{\beta}_{3}treina_{i}+\varepsilon_{i}
+$$
+
+em que o termo $\varepsilon_{i}$ para $i=1,...n$ contém fatores não observados, mas que podem influenciar a produtividade, tais como:
+
+* aptidão inata;
+* qualidade da educação;
+* formação da família
+
+**Objetivo:** Testar hipótese sobre o parâmetro ${\beta}_{3}$. Exemplo: ele é diferente de zero?
+
+##### **ESTRUTURA DE DADOS ECONÔMICOS**
+
+Os dados econômicos apresentam-se em uma variedade de tipos. Embora alguns métodos econométricos possam ser aplicados com pouca ou nenhuma modificação para muitos tipos diferentes de informações, as características especiais de alguns dados devem ser consideradas ou deveriam ser exploradas. Descreveremos a seguir as estruturas de dados mais importantes encontradas nos trabalhos aplicados.
+
+###### **CORTE TRANSVERSAL**
+
+Um conjunto de dados de corte transversal consiste em uma amostra de indivíduos, consumidores, empresas, cidades, estados, países ou uma variedade de outras unidades, **tomada em um determinado ponto no tempo**. 
+
+Características importantes deste tipo de dado:
+
+* Não podemos considerar que eles foram obtidos por uma amostra aleatória;
+* Os dados das unidades não precisam corresponder ao mesmo período;
+* A ordenação dos dados não importa para a análise econométrica
+
+Os dados de corte transversal são amplamente usados em economia e em outras ciências sociais. Em economia, a análise de dados de corte transversal está intimamente alinhada com campos da microeconomia aplicada, tais como economia do trabalho, finanças públicas estaduais e locais, organização industrial, economia urbana, demografia e economia da saúde. 
+
+```{r, echo=FALSE}
+# Pacotes necessarios
+suppressMessages(require(wooldridge))
+suppressMessages(require(quantmod))
+suppressMessages(require(magrittr))
+suppressMessages(require(dplyr))
+suppressMessages(require(highcharter))
+suppressMessages(require(plm))
+suppressMessages(require(kableExtra))
+suppressMessages(require(htmltools))
+```
+
+A tabela abaixo apresenta uma amostra de um conjunto de dados de corte transversal para o ano de 1976, de 526 trabalhadores. As variáveis são:
+
+* **wage**: salário hora
+* **educ**: anos de educação formal
+* **exper**: anos de experiência no mercado de trabalho
+* **female**: indicador de gênero
+* **married**: indicador de estado civil
+* **tenure**: anos com o empregador atual
+
+<br> <br>
+
+```{r, echo=FALSE, tidy=TRUE, results='asis'}
+# Exemplo de Dados de Corte Transversal
+data("wage1", package = "wooldridge")
+wage1 %<>% dplyr::mutate(wage = round(wage,0)) %<>% 
+  dplyr::select(wage,educ,exper,female,married,tenure)
+knitr::kable(wage1, align = "c") %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "responsive"), full_width = TRUE) %>%
+  kableExtra::scroll_box(height = "200px")
+```
+
+<br> <br>
+
+Para este tipo de dados uma possível abordagem é o uso de Regressão Linear Múltipla e o modelo a ser estimado seria:
+
+$$
+wage_{i} = \beta_{0}+\beta_{1}educ_{i}+\beta_{2}exper_{i}+\beta_{3}female_{i}+\beta_{4}married_{i}+\beta_{4}tenure_{i}+\varepsilon_{i}
+$$
+
+onde $\varepsilon_{i}$ é uma variável aleatória com média zero, $E\left(\varepsilon_{t}\right)=0$, e variância constante, $Var\left(\varepsilon_{i}\right)=\sigma^{2}$.
+
+###### **SÉRIE TEMPORAL**
+
+Um conjunto de séries temporais consiste em observações sobre uma variável ou muitas variáveis ao longo do tempo. Exemplos de dados de séries temporais incluem preços de ações, oferda de moeda, índice de preços ao consumidor, produto interno bruto, taxas anuais de homicídios e números de automóveis vendidos.
+
+Características importantes deste tipo de dado:
+
+* Eventos passados podem influenciar eventos futuros;
+* A ordenação cronológica das observações transmite informações importantes.
+
+Nos gráficos abaixo temos como exemplo a série temporal do fechamento do IBOVESPA bem como a série temporal dos retornos deste índice. Note que há relação temporal nos dados (mais notável no gráfico dos retornos).
+
+```{r, echo=FALSE, tidy=TRUE, results='asis', warning=FALSE}
+# Exemplo de Série Temporal
+# ts2 = getSymbols("^BVSP", src = "yahoo", warnings = FALSE)
+# hc <- highchart(type = "stock") %>% 
+#   hc_title(text = "Fechamento IBOVESPA") %>% 
+#   hc_subtitle(text = "Dados extraídos usando o pacote quantmod do R") %>% 
+#   hc_add_series(BVSP[,4], id = "ts")
+# 
+# hc
+
+bovespa_day <- quantmod::getSymbols("^BVSP", src = "yahoo", auto.assign=FALSE)
+bovespa_log_day_return <- PerformanceAnalytics::Return.calculate(bovespa_day$BVSP.Close, method = "discrete")
+
+hc <- highchart(type = "stock") %>% 
+  hc_title(text = "Índice IBOVESPA") %>% 
+  hc_subtitle(text = "Dados extraídos usando o pacote quantmod do R") %>% 
+  hc_add_series(name = "índice", bovespa_day$BVSP.Close, id = "ts", color = "green")
+
+hc0 <- highchart(type = "stock") %>% 
+  hc_title(text = "Retornos do IBOVESPA") %>% 
+  hc_subtitle(text = "Dados extraídos usando o pacote quantmod do R") %>% 
+  hc_add_series(name = "Retornos", bovespa_log_day_return, id = "ts", color = "blue")
+
+lst <- list(hc,hc0)
+
+hw_grid(lst, ncol = 1, rowheight = 500)  %>% browsable()
+```
+
+<br> <br>
+
+Para este tipo de dado a relação linear entre a observação presente e valores passados da série temporal pode contribuir para o modelo a ser estimado. Tal comportamento também pode ser observado entre duas ou mais séries temporais. 
+
+Neste sentido, o objetivo da econometria de séries temporais é apresentar como modelar cada um destes casos e será o que aprenderemos neste curso. 
+
+###### **DADOS EM PAINEL**
+
+Um conjunto de dados em painel consiste de em uma série temporal para cada registro de corte transversal. Como exemplo, suponha que tenhamos o histórico de salário, educação e emprego para um conjunto de indivíduos ao longo de um período de dez anos.
+
+As características importantes deste tipo de dado são:
+
+* As mesmas unidades de corte transversal são acompanhadas ao longo de um determinado período;
+* A ordenação no corte transversal de um conjunto de dados em painel não é importante. 
+
+A tabela abaixo apresenta uma amostra de um conjunto de dados de painel de 11 grandes empresas dos EUA ao longo de 20 anos (1935–1954). As variáveis são:
+
+* **firm**: o identificador da firma
+* **year**: o ano de coleta da observação para a firma
+* **inv**: investimento bruto da firma
+* **value**: valor de capital da firma
+* **capital**: estoque da firma (plantas e equipamentos)
+
+```{r, echo=FALSE, tidy=TRUE, results='asis'}
+# Exemplo de Dados de Corte Transversal
+data("Grunfeld", package = "plm")
+Grunfeld %<>% dplyr::slice(1:100L)
+knitr::kable(Grunfeld, align = "c") %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "responsive"), full_width = TRUE) %>%
+  kableExtra::scroll_box(height = "200px")
+
+```
+
+<br> <br>
+
+Para este tipo de dados uma possível abordagem é o uso da microeconometria por meio de modelos econométricos de dados em painel. O modelo a ser estimado seria:
+
+$$
+inv_{it} = \beta_{0it}+\beta_{1it}value_{it}+\beta_{2it}capital_{it}+\varepsilon_{it}
+$$
+
+onde $i=1,...,n$ é o índice da unidade de corte transversal e $t=1,...,T$ o índice de tempo. Este modelo é muito geral e não é estimável quando existem mais parâmetros do que observações. Restrições adicionais deem ser colocadas na forma pela qual $\beta_{0it}$ e os demais betas variam para cada $i$ e $t$ além do comportamento do termo de erro $\varepsilon_{it}$. O objetivo da microeconometria é tratar estas diferenças e apresentar métodos de estimação para cada caso.
+
+##### **REFERÊNCIAS**

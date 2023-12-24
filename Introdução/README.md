@@ -31,12 +31,19 @@ Outliers são dados discrepantes, isto é, são dados muito diferentes dos demai
 São testes de afirmações sobre um parâmetro. Processo que utiliza estatísticas amostrais para testar uma hipótese (afirmação original) e aceitá-la ou rejeitá-la.
 
 Existem duas hipóteses:
-- Hipótese nula (Ho)
-- Hipótese alternativa (Ha): oposto da hipótese nula.
+- Hipótese nula (H0)
+- Hipótese alternativa (H1): oposto da hipótese nula.
 
 #### Tipos de erro
 - Erro tipo I: hipótese nula rejeitada quando ela for verdadeira
 - Erro tipo II: aceita a hipótese nula (não rejeita) sendo ela falsa.
+
+#### Intervalo de confiança
+Nível de confiança: Probabilidade de que o intervalo estimado contenha o parâmetro populacional.
+
+Esse nível de confiança (c) é a área sob a curva normal padrão entre os valores críticos (-Zc e Zc).
+
+
 
 #### Nível de significância (α)
 Probabilidade máxima permitida para cometer o erro tipo I.

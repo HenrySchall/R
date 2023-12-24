@@ -79,15 +79,7 @@ Raiz do erro quadrático médio (RMSE – Root Mean Squared Error)
 - AIC: Critério de informação de Akaike.
 - BIC: Critério de informação Bayesiano.
 
-
-
-
-
-
-
-
-
-## Álgebra Linear
+### Álgebra Linear
 
  
 

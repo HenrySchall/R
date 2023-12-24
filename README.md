@@ -4,7 +4,6 @@ A linguagem R é uma linguagem estatística criada no departamento de Estatísti
 na década de 1990. Ela é utilizada na manipulação, análise e visualização de dados.
 
 ### Configuração para uso no Visual Studio Code 
-#### Comandos para configurar
 
 ```r
 #Rodar no terminal do R

@@ -40,43 +40,53 @@ Quantitativos (atributos numéricas).
 3) Conglomerado (Agrupamento): Divisão da população em grupos com características similares, porém heterogêneas, e seleção aleatória de alguns grupos para analisar todos os elementos destes grupos. (Ex.: Divisão da população de escolas estaduais por região, enfermeiros de uma rede de hospitais… ).  
 4) Sistemática: Membros da população são ordenados numericamente e são selecionados aleatoriamente, obedecendo uma sequência numérica. (Ex.: criação de números para cada amostra e seleção obedecendo uma ordem numérica).
 
-#### Outliers
-Outliers são dados discrepantes, isto é, são dados muito diferentes dos demais dados pertencentes à variável em análise. A relevância deles deve ser analisada para definir se continuarão no dataset ou se devem ser tratados (corrigidos, excluídos ou substituídos), pois se não forem relevantes, podem interferir significativamente nos resultados das análises. Eles podem ser identificados por observações diretas no dataset (quando a quantidade for pequena), por gráficos e por funções específicas.
+#### Outliers 
+São dados discrepantes, isto é, são dados muito diferentes dos demais dados pertencentes à variável em análise. A relevância deles deve ser analisada para definir se continuarão no dataset ou se devem ser tratados (corrigidos, excluídos ou substituídos), pois se não forem relevantes, podem interferir significativamente nos resultados das análises.
 
 ![Captura de tela 2023-12-23 220326](https://github.com/HenrySchall/R/assets/96027335/d0f92ab2-e51d-4b0e-8113-791683e24083)
 
-
-#### Testes de hipóteses
+#### Testes de hipóteses 
 São testes de afirmações sobre um parâmetro. Processo que utiliza estatísticas amostrais para testar uma hipótese (afirmação original) e aceitá-la ou rejeitá-la.
 
 Existem duas hipóteses:
 - Hipótese nula (H0)
-- Hipótese alternativa (H1): oposto da hipótese nula.
+- Hipótese alternativa (H1):
 
 #### Tipos de erro
 - Erro tipo I: hipótese nula rejeitada quando ela for verdadeira
 - Erro tipo II: aceita a hipótese nula (não rejeita) sendo ela falsa.
 
 #### Intervalo de confiança
-Nível de confiança: Probabilidade de que o intervalo estimado contenha o parâmetro populacional.
+- Intervalo de confiança: Probabilidade de que o parâmetro populacional estimado, esteja no intervalo selecionado.
+- Nível de significância: Probabilidade máxima permitida para cometer o erro tipo I.
 
-Esse nível de confiança (c) é a área sob a curva normal padrão entre os valores críticos (-Zc e Zc).
+![Captura de tela 2023-12-23 220736](https://github.com/HenrySchall/R/assets/96027335/fa170bac-c99f-45c1-aa36-5be116073952)
 
-#### Nível de significância (α)
-Probabilidade máxima permitida para cometer o erro tipo I.
+Intervalo de confiança é a área cinza da curva normal padrão. Já os valores críticos (-Zc e Zc) são os níveis de significância do modelo, dado seu intervalo de confiança. 
 
-#### Métricas de Desempenho do modelo
+![Captura de tela 2023-12-23 220817](https://github.com/HenrySchall/R/assets/96027335/2ddf04a2-cfe2-4e9b-b9db-c3fbf3f92db1)
+
+Nível de confiança/significância| Zc 
+:---:|:---:|
+90%|1,645   
+95%|1,96 
+99%|2,575
+
+#### Métricas de Desempenho
 Erro absoluto médio (MAE – Mean Absolute Error) 
 
 ![Captura de tela 2023-12-23 220021](https://github.com/HenrySchall/R/assets/96027335/f5bcb70b-8869-46b5-819c-11266879e2b1)
+
+- Oi = valores observados
+- Pi = valores previstos
 
 Raiz do erro quadrático médio (RMSE – Root Mean Squared Error)
 
 ![Captura de tela 2023-12-23 220035](https://github.com/HenrySchall/R/assets/96027335/e6ab921d-9983-4256-b3ec-e41c5ae49bb8)
 
-#### Comparação de modelos
-- AIC: Critério de informação de Akaike.
-- BIC: Critério de informação Bayesiano.
+#### Coeficientes de Correlação
+
+Frequentemente tem-se o interesse em verificar a existência de associação entre dois conjuntos de dados e também o seu grau de associação. O coeficiente de correlação, por si só, representa o grau de associação. No caso paramétrico, a medida usual é o coeficiente de correlação de Pearson
 
 ### Álgebra Linear
 

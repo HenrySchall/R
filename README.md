@@ -55,14 +55,22 @@ Existem duas hipóteses:
 - Erro tipo II: aceita a hipótese nula (não rejeita) sendo ela falsa.
 
 #### Intervalo de confiança
-Nível de confiança: Probabilidade de que o intervalo estimado contenha o parâmetro populacional.
+- Intervalo de confiança: Probabilidade de que o parâmetro populacional estimado, esteja no intervalo selecionado.
+- Nível de significância: Probabilidade máxima permitida para cometer o erro tipo I.
 
-Esse nível de confiança (c) é a área sob a curva normal padrão entre os valores críticos (-Zc e Zc).
+![Captura de tela 2023-12-23 220736](https://github.com/HenrySchall/R/assets/96027335/fa170bac-c99f-45c1-aa36-5be116073952)
 
-#### Nível de significância (α)
-Probabilidade máxima permitida para cometer o erro tipo I.
+Intervalo de confiança é a área cinza da curva normal padrão. Já os valores críticos (-Zc e Zc) são os níveis de significância do modelo, dado seu intervalo de confiança. 
 
-#### Métricas de Desempenho do modelo
+![Captura de tela 2023-12-23 220817](https://github.com/HenrySchall/R/assets/96027335/2ddf04a2-cfe2-4e9b-b9db-c3fbf3f92db1)
+
+Nível de confiança/significância| Zc 
+:---:|:---:|
+90%|1,645   
+95%|1,96 
+99%|2,575
+
+#### Métricas de Desempenho
 Erro absoluto médio (MAE – Mean Absolute Error) 
 
 ![Captura de tela 2023-12-23 220021](https://github.com/HenrySchall/R/assets/96027335/f5bcb70b-8869-46b5-819c-11266879e2b1)

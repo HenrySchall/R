@@ -3,30 +3,29 @@
 ## Introdução ##
 ################
 
---------------------------------------------------------------------
 "A linguagem R possui um conjunto de bases de dados, que podem ser 
 usadas como exemplo, para vê-las usamos o código data()"
---------------------------------------------------------------------
 
 data()
 
-###### OPERADORES MATEMÁTICOS ######
+############################
+## OPERADORES MATEMÁTICOS ##
+############################
 
-5 + 3 # Soma
-8 - 6 # Subtração
-4 * 3 # Multiplicação
-20 / 5 # Divisão
-4 ** 2 ou 4 ^ 2 # Potenciação
-sqrt (81) ou 81**(1/2) # Radiciação (quadrada)
-125**(1/3) # Radiciação (cúbica)
-abs (-10) # Módulo
-factorial(3) # Fatorial
-exp(1) # Exponencial
-log(2.718281828) # Logatimo natural
-log2(8) ou 2^3 = 8 # Logaritmo 
-sin(pi/6) 
+5 + 3 #Soma
+8 - 6 #Subtração
+4 * 3 #Multiplicação
+20 / 5 #Divisão
+4 ** 2 ou 4 ^ 2 #Potenciação
+sqrt (81) ou 81**(1/2) #Radiciação (quadrada)
+125**(1/3) #Radiciação (cúbica)
+abs (-10) #Módulo
+factorial(3) #Fatorial
+exp(1) #Exponencial
+log(2.718281828) #Logatimo natural
+log2(8) ou 2^3 = 8 #Logaritmo 
 
-# Notação científica
+#Notação científica
 2e32 #(2x10^32)
 2e3 #(2x10^3)
 2e-26 #(2x10^-26)
@@ -34,7 +33,9 @@ sin(pi/6)
 3e20 * 2e12 #(3x10^20 * 2x10^12)
 15e16 / 5e6 #(15x10^16 / 5x10^6)
 
-######## VARIÁVEIS #########
+###############
+## VARIÁVEIS ##
+###############
 
 "A linguagem R é orientada ao objeto, por isso podemos atribuir a operação à uma variável,
 para isso podemos usar os símbolos = ou <-"
@@ -45,64 +46,65 @@ print(resultado)
 flores vermelhas <- 5
 flores laranjas  <- 6
 boque <- flores laranjas + flores vermelhas
-print(bo)
+print(boque)
 
-###### TIPO BÁSICO DO OBJETO #####
+###########################
+## TIPO BÁSICO DO OBJETO ##
+###########################
 
-"numeric: numérico
-integer: inteiro
-complex: número complexo
-character (string): caractere
-logical (boolean): lógicos (True e False)
-factor: categorias bem definidas. ex: gênero(masculino e feminino)
-estado civil(casado, solteiro, viúvo...), ano(2019, 2020, 2021...)"
+#numeric: numérico
+#integer: inteiro
+#complex: número complexo
+#character (string): caractere
+#logical (boolean): lógicos (True e False)
+#factor: categorias bem definidas. ex: gênero(masculino e feminino)
+#estado civil(casado, solteiro, viúvo...), ano(2019, 2020, 2021...)
 
-# Identificando variável
-y = 2
-class(y)
-
-# Convertendo variável
+#Identificando variável
 x = 2
 class(x)
+
+#Convertendo variável
 x <- as.integer(x)
 class(x)
-x
 
-# identificando variável
 genero <- c("masculino","feminino")
 genero
 class(genero)
-
-# Convertendo variável
 genero <- as.factor(genero)
-genero
 class(genero)
 
-# Comprimento Variável
-length(genero) # possui dois fatores c("masculino","feminino")
-
-p <- 43
-length(p) #possui apenas um fator
+#Comprimento Variável
+length(genero) #possui dois fatores
+length(x) #possui apenas um fator
 
 q <- "bom dia" 
-length(p)
+length(q)
 
 u <- c("1","2","3")
 length(u)
 
-######  ESTRUTURA DOS DADOS ####### (class, table, summary, labels, levels)
+#########################
+## ESTRUTURA DOS DADOS ## 
+#########################
+
+#class
+#table
+#summary 
+#labels
+#levels
 
 escolaridade <- c("fundamental", "médio", "superior", "médio", "superior", "fundamental") 
 print(escolaridade)
 class(escolaridade)
 
-# Determinando a posição de cada fator
+#Determinando a posição de cada fator
 posicao <- escolaridade[3]
 posicao
 posicao <- escolaridade[1]
 posicao
 
-# Fator (coloca na ordem)
+#Fator (coloca na ordem)
 escolaridade_fator <- as.factor(escolaridade)
 print (escolaridade_fator)
 class(escolaridade_fator)
@@ -114,8 +116,8 @@ posicao <- escolaridade_fator[4]
 posicao
 
 summary (escolaridade)
-summary (escolaridade_fator) # vária dependendo do tipo de objeto
-table(escolaridade) # frequência das variáveis
+summary (escolaridade_fator) #vária dependendo do tipo de objeto
+table(escolaridade) #frequência das variáveis
 
 tensao_casas <- c(110, 220, 110, 110, 110, 110, 220)
 print(tensao_casas)
@@ -127,15 +129,117 @@ tensao_casas_fator <- as.factor (tensao_casas)
 print(tensao_casas_fator)
 summary(tensao_casas_fator)
 
-# level define os fatores
-# label atribuição de cada fator
+#level define os fatores
+#label atribuição de cada fator
+#order = True define se um fator é menor que o outro fator qualitativamente
 
 factor_temperature_vector <- factor(tensao_casas, levels = c("110", "220"), labels = c("Baixo","Alto"), order = T)
-# order = True define se um fator é menor que o outro fator qualitativamente
 factor_temperature_vector
 
-speed_vector <- c('Fast','Slow','Slow','Fast','Ultra-fast')
-factor_speed_vector <- factor(speed_vector, levels = c('Slow','Fast','Ultra-fast'), order = T)
-factor_speed_vector
-table(factor_speed_vector)
+#################
+## Estatística ##
+#################
 
+####################
+## Álgebra Linear ##
+####################
+
+"Campo da matemática que trabalha com equações lineares e funções lineares que são 
+representadas através de matrizes e vetores."
+
+# Tópicos
+# - Sistemas de Equações Lineares.
+# - Vetores = Representação matemática de uma grandeza vetorial (Módulo, Direção e Sentido)
+# - Matrizes
+# - Determinantes
+# - Espaços vetoriais
+# - Transformações lineares
+# - Autovalores e Autovetores
+
+# Grandezas
+# - Escalar = Só necessita do seu valor para representar a grandeza (Tempo, Massa, Temperatura)
+# - Vetorial = Necessita de módulo, direção e sentindo (Força, Velocidade, Aceleração)
+
+#############
+## VETORES ##
+#############
+
+#Criando um vetor
+vetor <- c(1,2,3,4,5,6,7)
+class(vetor)
+
+dias <- c("segunda", "terca", "quarta", "quinta", "sexta", "sábado", "domingo")
+class(dias)
+
+#Juntando os dois vetores
+juntando <- c(vetor, dias)
+juntando
+class(juntando)
+length(juntando) #tamanho
+
+#Colocando em ordem crescente
+gastos_dia <- c(300, 400, 5000, 150, 250)
+ordem_crescente <- sort(gastos_dia)
+ordem_crescente
+
+#Soma dos valores do vetor
+total <- sum(gastos_dia) 
+total
+
+#Mínimo
+minimo <- min(gastos_dia)
+min(gastos_dia)
+
+#Máximo
+max(gastos_dia)
+maximo <- max(gastos_dia)
+
+#Média
+media <- mean(gastos_dia)
+mean(gastos_dia)
+
+#Limite
+limite <- (gastos_dia <= 300)
+limite
+
+#Intervalo
+intervalo <- (3:8)
+intervalo
+
+passo <- seq(2,48,by=5)
+passo
+
+repeticao <- rep(2,8)
+repeticao
+
+repeticao_multipla <- rep(c(3,5),c(4,6))
+repeticao_multipla
+
+repeticao_programada <- rep(3:5, each = 3)
+repeticao_programada
+
+repeticao_programada_2 <- rep(3:6,3)
+repeticao_programada_2
+
+vetor2 <- c(2,4,6,8,10,12)
+vetor3 <- c(vetor2,14) # incluindo registro num vetor
+vetor3
+class(vetor3)
+vetor3 <- as.integer(vetor3)
+
+vetor4 <- c(vetor3,"pares")
+vetor4
+class(vetor4)
+
+posicao <- vetor3[5]
+posicao
+vetor3[4]
+
+posicao_inexistente <- vetor3[8]
+posicao_inexistente
+
+posicao_excluida <- vetor3[-3]
+posicao_excluida
+
+posicao_excluida <- vetor3[-5]
+posicao_excluida

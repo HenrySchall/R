@@ -84,58 +84,6 @@ length(q)
 u <- c("1","2","3")
 length(u)
 
-#########################
-## ESTRUTURA DOS DADOS ## 
-#########################
-
-#class
-#table
-#summary 
-#labels
-#levels
-
-escolaridade <- c("fundamental", "médio", "superior", "médio", "superior", "fundamental") 
-print(escolaridade)
-class(escolaridade)
-
-#Determinando a posição de cada fator
-posicao <- escolaridade[3]
-posicao
-posicao <- escolaridade[1]
-posicao
-
-#Fator (coloca na ordem)
-escolaridade_fator <- as.factor(escolaridade)
-print (escolaridade_fator)
-class(escolaridade_fator)
-
-posicao <- escolaridade_fator[1]
-posicao <- escolaridade_fator[2]
-posicao <- escolaridade_fator[3]
-posicao <- escolaridade_fator[4]
-posicao
-
-summary (escolaridade)
-summary (escolaridade_fator) #vária dependendo do tipo de objeto
-table(escolaridade) #frequência das variáveis
-
-tensao_casas <- c(110, 220, 110, 110, 110, 110, 220)
-print(tensao_casas)
-class(tensao_casas)
-summary(tensao_casas)
-table(tensao_casas)
-
-tensao_casas_fator <- as.factor (tensao_casas)
-print(tensao_casas_fator)
-summary(tensao_casas_fator)
-
-#level define os fatores
-#label atribuição de cada fator
-#order = True define se um fator é menor que o outro fator qualitativamente
-
-factor_temperature_vector <- factor(tensao_casas, levels = c("110", "220"), labels = c("Baixo","Alto"), order = T)
-factor_temperature_vector
-
 #################
 ## Estatística ##
 #################
@@ -206,40 +154,139 @@ limite
 intervalo <- (3:8)
 intervalo
 
+#Sequência
 passo <- seq(2,48,by=5)
 passo
 
+#Repetição
 repeticao <- rep(2,8)
 repeticao
 
+#Repetição Multipla
 repeticao_multipla <- rep(c(3,5),c(4,6))
 repeticao_multipla
 
+#Repetição Programada
 repeticao_programada <- rep(3:5, each = 3)
 repeticao_programada
 
 repeticao_programada_2 <- rep(3:6,3)
 repeticao_programada_2
 
-vetor2 <- c(2,4,6,8,10,12)
-vetor3 <- c(vetor2,14) # incluindo registro num vetor
-vetor3
-class(vetor3)
-vetor3 <- as.integer(vetor3)
+##########################
+## OPERAÇÕES DE VETORES ##
+##########################
 
-vetor4 <- c(vetor3,"pares")
-vetor4
-class(vetor4)
+u <- c(2,-4,1)
+print(u)
 
-posicao <- vetor3[5]
+v <- c(3,2,-5)
+print(v)
+
+#Soma
+soma <- u + v
+soma
+
+#Produto
+produto <- u * v
+produto
+
+#Produto Interno (soma do produto)
+produto_interno <- u %*% v
+produto_interno
+
+#Multiplicação Escalar
+multiplicacao <- 5*u
+multiplicacao
+
+multiplicacao2 <- 3*v
+multiplicacao2
+
+produto_interno <- (5*u) %*% (3*v)
+produto_interno 
+
+#Norma
+norm(u, type="2")
+norm(v, type="2")
+
+w = c(2,4,6,8,10,12)
+norm(w, type="2")
+round(norm(w, type="2"),3) #forma resumida
+
+#Distância
+# Criando Função Distância
+dist <- function (vetor1, vetor2) {
+  soma_quad = 0
+  for (i in 1:length(vetor1)){
+    soma_quad = soma_quad+(vetor1[i] - vetor2[i])**2}
+  dist = soma_quad**(1/2)
+}
+
+# Calculando a distância entre vetores
+distancia <- dist(u,v)
+print(paste0("A distância entre os vetores: ", round(distancia, 2)))
+
+#########################
+## ESTRUTURA DOS DADOS ## 
+#########################
+
+#class
+#table
+#summary 
+#labels
+#levels
+
+escolaridade <- c("fundamental", "médio", "superior") 
+print(escolaridade)
+class(escolaridade)
+
+#Determinando a posição de cada fator
+posicao <- escolaridade[2]
 posicao
-vetor3[4]
+posicao <- escolaridade[1]
+posicao
 
-posicao_inexistente <- vetor3[8]
-posicao_inexistente
+#Adicionando uma posição
+escolaridade2 <- c(escolaridade,"1")
+escolaridade2
+class(escolaridade2)
 
-posicao_excluida <- vetor3[-3]
+#Excluindo posição
+posicao_excluida <- escolaridade[-2]
 posicao_excluida
 
-posicao_excluida <- vetor3[-5]
-posicao_excluida
+#Fator (coloca na ordem)
+escolaridade_fator <- as.factor(escolaridade)
+print (escolaridade_fator)
+class(escolaridade_fator)
+
+posicao <- escolaridade_fator[1]
+posicao <- escolaridade_fator[2]
+posicao <- escolaridade_fator[3]
+posicao <- escolaridade_fator[4]
+posicao
+
+summary (escolaridade)
+summary (escolaridade_fator) #vária dependendo do tipo de objeto
+table(escolaridade) #frequência das variáveis
+
+tensao_casas <- c(110, 220, 110, 110, 110, 110, 220)
+print(tensao_casas)
+class(tensao_casas)
+summary(tensao_casas)
+table(tensao_casas)
+
+tensao_casas_fator <- as.factor (tensao_casas)
+print(tensao_casas_fator)
+summary(tensao_casas_fator)
+
+#level define os fatores
+#label atribuição de cada fator
+#order = True define se um fator é menor que o outro fator qualitativamente
+
+factor_temperature_vector <- factor(tensao_casas, levels = c("110", "220"), labels = c("Baixo","Alto"), order = T)
+factor_temperature_vector
+
+##############
+## MATRIZES ##
+##############

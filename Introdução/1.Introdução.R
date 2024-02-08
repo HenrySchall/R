@@ -7,6 +7,7 @@
 usadas como exemplo, para vê-las usamos o código data()"
 
 data()
+library(help = "datasets")
 
 ############################
 ## OPERADORES MATEMÁTICOS ##

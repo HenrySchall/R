@@ -2,27 +2,23 @@
 ####     SIMULAÇÃO AR        ###
 ################################
 
-# Definir ponto inicial para permitir replicar o exemplo. Gerar mesmos valores aleatórios
 set.seed(123)
 
-###########
-## AR(1) ##
-###########
+#############
+### AR(1) ###
+#############
 
-# Dados Simulados:
-# - arima.sim: função do pacote stats que nos permite simular um modelo arima, usando:
-#    - model: uma lista com as especificações ar, diff e ma do modelo com as seguintes opções:
-#      - order: a ordem do modelo (no exemplo abaixo, arima(1,0,0), ou seja um arma(1,0))
-#      - ar: valores para os parâmetros ar do modelo (no exemplo abaixo apeas um valor para o ar1)
-#      - ma: valores para os parâmetros ma do modelo (no exemplo abaixo, não temos nenhum valor porque em order não especificamos ma)
-#    - n: o tamanho da série temporal a ser simulada
-#    - rand.gen: a função a ser usada para gerar os resíduos do modelo. Abaixo, usamos a função
-# rnorm o que torna os resíduos normalmente distribuídos. Outra alternativa, seria usar a função
-# rt para resíduos distribuídos conforme uma t de Student. 
-ar1 <- stats::arima.sim(model = list(order = c(1,0,0), 
-                                     ar = c(0.5)), 
-                        n = 1000, 
-                        rand.gen = rnorm)
+ar1 <- stats::arima.sim(model = list(order = c(1,0,0), ar = c(0.5)), n = 1000, rand.gen = rnorm)
+
+# arima.sim: função do pacote stats que nos permite simular um modelo arima, usando:
+#   model: uma lista com as especificações ar, diff e ma do modelo com as seguintes opções:
+#   order: a ordem do modelo (no exemplo abaixo, arima(1,0,0), ou seja um arma(1,0))
+
+#   ar: valores para os parâmetros ar do modelo (no exemplo abaixo apeas um valor para o ar1)
+#   ma: valores para os parâmetros ma do modelo (no exemplo abaixo, não temos nenhum valor porque em order não especificamos ma)
+#   n: o tamanho da série temporal a ser simulada
+
+# rand.gen: função para gerar os resíduos do modelo.  
 
 # Gráfico da série temporal simulada
 plot.ts(ar1, main = "AR(1) Simulado", xlab = "", ylab = "")

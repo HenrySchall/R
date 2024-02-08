@@ -192,7 +192,7 @@ Box.test(modelos[[best1]]$residuals,type="Ljung",lag = 24)
 # Teste de heterocedasticidade condicional
 #  - H0: quadrado dos resíduos são não autocorrelacionados
 #  - H1: quadrado dos resíduos são autocorrelacionados
-Box.test(modelos[[best1]]$residuals^2,type="Ljung",lag = 24)
+Box.test(serie1,residuals^2,type="Ljung",lag = 24)
 
 # Teste de Normalidade dos resíduos.
 #  - H0: resíduos normalmente distribuídos

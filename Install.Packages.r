@@ -19,6 +19,7 @@ if(!require(discreteRV)){install.packages("discreteRV")}
 if(!require(aTSA)){install.packages("aTSA")}
 if(!require(fGarch)){install.packages("fGarch")}
 if(!require(fUnitRoots)){install.packages("fUnitRoots")}
+if(!require(forecast)){install.packages("forecast")}
 if(!require(vars)){install.packages("vars")}
 if(!require(MTS)){install.packages("MTS")}
 if(!require(seasonal)){install.packages("seasonal")}
@@ -73,6 +74,7 @@ library(discreteRV)
 library(aTSA)
 library(fGarch)
 library(fUnitRoots)
+library(forecast)
 library(vars)
 library(MTS)
 library(seasonal)
@@ -86,6 +88,7 @@ library(ggplot2)
 library(PerformanceAnalytics)
 library(nortest)
 library(scales)
+
 
 ##########################
 ### Criar CSV no Excel ###

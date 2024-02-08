@@ -12,9 +12,13 @@
 #   𝜎^2(𝑡)=𝑉𝑎𝑟{𝑍(𝑡)} -> Variância 
 #   𝛾(𝑡1,𝑡2)=𝐶𝑜𝑣{𝑍(𝑡1),𝑍(𝑡2)} -> Autocovariância
 
+Imagem 
+
 #   3) Estacionaridade = é quando uma série temporal apresenta todas suas características estatísticas constante ao longo do tempo
 #    - Estacionaridade Fraca =
 #    - Estacionaridade Forte = 
+
+imagem 
 
 #   4) Passeio Aleatório (Random Walk) =  é a soma de pequenas flutuações estocásticas (tendência estocástica)
 #   Matematicamente:

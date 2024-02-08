@@ -1,4 +1,4 @@
-## Introdução
+## Séries Temporais
 #### Objetivos:
 - Analisar a origem da série
 - Previsões futuras

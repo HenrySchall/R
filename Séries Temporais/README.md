@@ -1,113 +1,46 @@
-## Introdução
+## Séries Temporais
+#### Objetivos:
+- Analisar a origem da série
+- Previsões futuras
+- Descrição do comportamento da série 
+- Analisar perodicidade ou tendência 
 
-A linguagem R é uma linguagem estatística criada no departamento de Estatística da Universidade de Auckland, Nova Zelândia, por Ross Ihaka e Robert Gentleman, 
-na década de 1990. Ela é utilizada na manipulação, análise e visualização de dados.
+#### Tipos:
+- Univariada = apenas uma variável se altera ao longo do tempo
+- Multivariada = mais de uma variável se altera ao longo do tempo
 
-### Configuração para uso no Visual Studio Code 
+#### Conceitos:
+Série Temporal -> é um conjunto de observações ordenadas no tempo ou um corte particular de um processo estocástico desconhecido
 
-```r
-#Rodar no terminal do R
-install.packages("languageserver")
-install.packages("httpgd")
-```
-```r
-#Preferences (Open User Settings (JSON)
-"editor.quickSuggestions.other": false
-r.lsp.diagnostics": false
-"r.plot.useHttpgd": true
-```
+#### Matematicamente: Y = Tdt + Szt + et 
+- Tendência (Tdt): Mudanças graduais em longo prazo (crescimento populacional).
+- Sazonalidade (Szt): oscilações de subida e de queda que sempre ocorrem em um determinado período (maior valor da conta de energia elétrica no inverno).
+- Resíduos (et): apresenta movimentos ascendentes e descendentes da série após a retirada do efeito de tendência ou sazonal (sequência de variáveis aleatórias).
 
-### Estatística
-A estatística é a ciência que objetiva coletar, organizar, analisar e interpretar dados. Ela é dividida em 3 partes: **Descritiva, Inferencial e Probabilística.**
+![Sem título](https://github.com/HenrySchall/R/assets/96027335/b60d5d3f-0d12-4695-ac17-eb49a8e8b42a)
 
-- Descritiva é aquela relacionada a descrição dos dados, representada pelas medidas de: centralidade (Média, moda e mediana), posição (Amplitude e Quartis), dispersão (Variância e Desvio Padrão).
-- Probabilistica é aquela relacionada a conceitos de probabilidades (espaço amostral, eventos) e distribuições de probabilidade discretas e contínuas (Binomial, Poisson, Exponencial e Normal).
-- Inferencial é aquela relacionada a estimação de parâmetros, intervalo de confiança e testes de hipóteses.
+Processo Estocástico -> é uma coleção de variáveis aleatórias definidas num mesmo espaço de probabilidades (processo gerador de uma série de variáveis). A descrição de um 
+processo estocástico é feita através de uma distribuição de probabilidade conjunta (o que é muito complexo de se fazer), então geralmente descrevemos ele por meio das funções:
+- 𝜇(𝑡)=𝐸{𝑍(𝑡)} -> Média 
+- 𝜎^2(𝑡)=𝑉𝑎𝑟{𝑍(𝑡)} -> Variância 
+- 𝛾(𝑡1,𝑡2)=𝐶𝑜𝑣{𝑍(𝑡1),𝑍(𝑡2)} -> Autocovariância
 
-#### Tipos de Dados
+![Captura de tela 2024-02-07 181930](https://github.com/HenrySchall/R/assets/96027335/7ea476dd-6ddf-4439-8aea-12fd6d06ab33)
 
-Qualitativos (atributos não numéricos).
-- Nominais: Denominações (cores, gênero, raça, títulos…)
-- Ordinais: atributos que podem ser classificados (Ex: classificação de filmes mais assistidos, grau de escolaridade, nível de satisfação…).
+Estacionaridade -> é quando uma série temporal apresenta todas suas características estatísticas constante ao longo do tempo
+- Estacionaridade Fraca = é quando as propriedades estatiaticas, são constantes no tempo, E(x)=U, Var(x) = 𝜎^2, COV(X,X-n) = k (corariância entre observações em diferentes pontos no tempo depende do tempo específico em que elas ocorreram). Na literatura, geralmente estacionalidade significa estacionalidade fraca.
 
-Quantitativos (atributos numéricas).
-- Discreto: valores finitos ou enumeráveis (quantidade de pessoas numa sala, número de carros em um estacionamento…)
-- Contínuo: infinitos valores possíveis num intervalo (renda, tempo, altura…).
+- Estacionaridade Forte = também chamada de estrita, é quando a função de probabilidade conjunta é invariante no tempo, ou seja, as distribuições individuais são iguais para todos "ts". Com isso a covariância depende apenas da distância entre as observações e não do tempo especifico que ocorreram. 
 
-#### Técnicas de Amostragem
-1) Aleatória Simples: Seleção executada por meio de sorteio, sem nenhum filtro.
-2) Estratificada: Divisão da população em grupos e seleção aleatória de uma amostra de cada grupo. (Ex: divisão por região, classe social, religião…).
-3) Conglomerado (Agrupamento): Divisão da população em grupos com características similares, porém heterogêneas, e seleção aleatória de alguns grupos para analisar todos os elementos destes grupos. (Ex.: Divisão da população de escolas estaduais por região, enfermeiros de uma rede de hospitais… ).  
-4) Sistemática: Membros da população são ordenados numericamente e são selecionados aleatoriamente, obedecendo uma sequência numérica. (Ex.: criação de números para cada amostra e seleção obedecendo uma ordem numérica).
+![IMG_1666](https://github.com/HenrySchall/R/assets/96027335/2e9ebb70-9d46-448a-ae0a-88f82e5c6f9e)
 
-#### Outliers 
-São dados discrepantes, isto é, são dados muito diferentes dos demais dados pertencentes à variável em análise. A relevância deles deve ser analisada para definir se continuarão no dataset ou se devem ser tratados (corrigidos, excluídos ou substituídos), pois se não forem relevantes, podem interferir significativamente nos resultados das análises.
+Passeio Aleatório (Random Walk) -> é a soma de pequenas flutuações estocásticas (tendência estocástica)
+Matematicamente: 𝑍𝑡 = 𝑍(𝑡−1)+ et
 
-![Captura de tela 2023-12-23 220326](https://github.com/HenrySchall/R/assets/96027335/d0f92ab2-e51d-4b0e-8113-791683e24083)
+Autocorrelação -> é a correlação de determinados períodos anteriores com o período atual, ou seja, o grau de dependência serial. Onde cada período desse tipo de correlação é denominado lag (defasagem) e sua análise 
+é o pressuposto para se criar previsões.
 
-#### Testes de hipóteses 
-São testes de afirmações sobre um parâmetro. Processo que utiliza estatísticas amostrais para testar uma hipótese (afirmação original) e aceitá-la ou rejeitá-la.
-
-Existem duas hipóteses:
-- Hipótese nula (H0)
-- Hipótese alternativa (H1):
-
-#### Tipos de erro
-- Erro tipo I: hipótese nula rejeitada quando ela for verdadeira
-- Erro tipo II: aceita a hipótese nula (não rejeita) sendo ela falsa.
-
-#### Intervalo de confiança
-- Intervalo de confiança: Probabilidade de que o parâmetro populacional estimado, esteja no intervalo selecionado.
-- Nível de significância: Probabilidade máxima permitida para cometer o erro tipo I.
-
-![Captura de tela 2023-12-23 220736](https://github.com/HenrySchall/R/assets/96027335/fa170bac-c99f-45c1-aa36-5be116073952)
-
-Intervalo de confiança é a área cinza da curva normal padrão. Já os valores críticos (-Zc e Zc) são os níveis de significância do modelo, dado seu intervalo de confiança. 
-
-![Captura de tela 2023-12-23 220817](https://github.com/HenrySchall/R/assets/96027335/2ddf04a2-cfe2-4e9b-b9db-c3fbf3f92db1)
-
-Nível de confiança/significância| Zc 
-:---:|:---:|
-90%|1,645   
-95%|1,96 
-99%|2,575
-
-#### Métricas de Desempenho
-Erro absoluto médio (MAE) 
-
-![Captura de tela 2023-12-23 220021](https://github.com/HenrySchall/R/assets/96027335/f5bcb70b-8869-46b5-819c-11266879e2b1)
-
-- Oi = valores observados
-- Pi = valores previstos
-
-Raiz do erro quadrático médio (RMSE)
-
-![Captura de tela 2023-12-23 220035](https://github.com/HenrySchall/R/assets/96027335/e6ab921d-9983-4256-b3ec-e41c5ae49bb8)
-
-### Teória Econômica & Econometria
-
-Por meio da Econometria é possível avaliar empiricamente a teoria econômica e explicar fatos passados, testar hipóteses, prever resultados de políticas ou eventos futuros e estimar relações entre variáveis econômicas. Isso é viável porque, em geral, há relações de equilíbrio de longo prazo entre variáveis econômicas.
-
-Campos da econometria, como por exemplo:
-
-- Econometria básica (regressão linear múltipla, ...)
-- Econometria de séries temporais (AR, MA, ARMA, ARIMA, ARCH, GARCH, VAR, VEC, ...)
-- Econometria não-paramétrica (regressão não-paramétrica, ....)
-- Microeconometria (dados em painel, ...)
-- Macroeconometria (DSGE, DSGE-VAR, VAR, VEC, ...)
-
-##### Estrutura dos dados econômicos
-
-Os dados econômicos apresentam-se em uma variedade de tipos. Embora alguns métodos econométricos possam ser aplicados com pouca ou nenhuma modificação para muitos tipos diferentes de informações, as características especiais de alguns dados devem ser consideradas ou deveriam ser exploradas. Descreveremos a seguir as estruturas de dados mais importantes encontradas nos trabalhos aplicados.
-
-- Corte Transversal: Um conjunto de dados de corte transversal consiste em uma amostra de indivíduos, consumidores, empresas, cidades, estados, países ou uma variedade de outras unidades, tomada em um determinado ponto no tempo, sendo assim 
-não podemos considerar que eles foram obtidos por uma amostra aleatória, os dados das unidades não precisam corresponder ao mesmo período e a ordenação dos dados não importa para a análise econométrica.
-
-- Série Temporal: Um conjunto de séries temporais consiste em observações sobre uma variável ou muitas variáveis ao longo do tempo. Exemplos de dados de séries temporais incluem preços de ações, oferda de moeda, índice de preços ao consumidor, produto interno bruto, taxas anuais de homicídios e números de automóveis vendidos. Sendo assim, podemos considerar que eventos passados podem influenciar eventos futuros e a ordenação cronológica das observações transmite informações importantes.
-
-- Dados em Painel: Um conjunto de dados em painel consiste de em uma série temporal para cada registro de corte transversal. Como exemplo, suponha que tenhamos o histórico de salário, educação e emprego para um conjunto de indivíduos ao longo de um período de dez anos. Sendo assim, as mesmas unidades de corte transversal são acompanhadas ao longo de um determinado período e a ordenação no corte transversal de um conjunto de dados em painel não é importante. 
-
-
-
-
+Ruído Branco (White Noise) -> é quando o erro de uma série temporal, segue uma distribuição normal, ou seja, um processo puramente aleatório. 
+- E(Xt) = 0 
+- Var(Xt) = 𝜎^2
 

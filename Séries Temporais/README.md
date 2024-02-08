@@ -11,7 +11,13 @@
 
 #### Conceitos:
 Série Temporal -> é um conjunto de observações ordenadas no tempo ou um corte particular de um processo estocástico desconhecido
-Matematicamente: Y = Tdt + Szt + et 
+
+#### Matematicamente: Y = Tdt + Szt + et 
+- Tendência (Tdt): Mudanças graduais em longo prazo (crescimento populacional).
+- Sazonalidade (Szt): oscilações de subida e de queda que sempre ocorrem em um determinado período (maior valor da conta de energia elétrica no inverno).
+- Resíduos (et): apresenta movimentos ascendentes e descendentes da série após a retirada do efeito de tendência ou sazonal (sequência de variáveis aleatórias).
+
+![Sem título](https://github.com/HenrySchall/R/assets/96027335/b60d5d3f-0d12-4695-ac17-eb49a8e8b42a)
 
 Processo Estocástico -> é uma coleção de variáveis aleatórias definidas num mesmo espaço de probabilidades (processo gerador de uma série de variáveis). A descrição de um 
 processo estocástico é feita através de uma distribuição de probabilidade conjunta (o que é muito complexo de se fazer), então geralmente descrevemos ele por meio das funções:

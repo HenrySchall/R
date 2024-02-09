@@ -44,12 +44,15 @@ Ruído Branco (White Noise) -> é quando o erro de uma série temporal, segue um
 - E(Xt) = 0 
 - Var(Xt) = 𝜎^2
 
-#### Processos de Transformação e Diferenciação
-A transformação é uma técnica que buscar deixar a série o mais próximo possível de uma distribuição normal. Já a diferenciação, busca transformar uma série não estacionária em estacionária, por meio da diferença de dois períodos consecutivos. De qualquer forma, ambas técnicas procuram deixar os modelos mais eficientes, entre os tipos existentes, podemos citar:
-1) Log (indicada para distribuição assimétrica positiva e variação crescente com a média)
-2) Suavização Exponencial (casos em que há impossibilidade da log)
-3) Suavização por Média Móvel (casos em que há impossibilidade da log)
-4) Box-Cox (onde a série deve ter somente valores positivos)
+Transformação e Suavização -> São técnicas que buscam deixar a série o mais próximo possível de uma distribuição normal. Transformando o valor das varáveis ou suavizando a tendência e/ou sazonaliade da série. Dentre todas as técnicas existentes podemos citar:
+1) Tranformação Log 
+2) Tranformação Expoencial
+3) Tranformação Box-Cox
+4) Suavização Média Móvel Exponencial (MME) - Curto período 
+5) Suavização por Média Móvel Simples (MMS) - Longo período
+
+Diferenciação -> A diferenciação, busca transformar uma série não estacionária em estacionária, por meio da diferença de dois períodos consecutivos
+
 
 
 

@@ -44,7 +44,7 @@ Ruído Branco (White Noise) -> é quando o erro de uma série temporal, segue um
 - E(Xt) = 0 
 - Var(Xt) = 𝜎^2
 
-#### Processos de transformação e diferenciação
+#### Processos de Transformação e Diferenciação
 A transformação é uma técnica que buscar deixar a série o mais próximo possível de uma distribuição normal. Já a diferenciação, busca transformar uma série não estacionária em estacionária, por meio da diferença de dois períodos consecutivos. De qualquer forma, ambas técnicas procuram deixar os modelos mais eficientes, entre os tipos existentes, podemos citar:
 1) Log (indicada para distribuição assimétrica positiva e variação crescente com a média)
 2) Suavização Exponencial (casos em que há impossibilidade da log)

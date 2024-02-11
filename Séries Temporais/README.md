@@ -53,9 +53,6 @@ Transformação e Suavização -> São técnicas que buscam deixar a série o ma
 
 Diferenciação -> A diferenciação, busca transformar uma série não estacionária em estacionária, por meio da diferença de dois períodos consecutivos
 
-
- - Modelos não lineares: autorregressivo com limiar (TAR), autorregressivo com transição suave (STAR), troca de regime markoviano (MSM) e redes neurais artificiais autorregressivas (AR-ANN).
-
 #### Modelos das séries temporais:
 Modelos lineares:
  - Modelos autorregressivos (AR)

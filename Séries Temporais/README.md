@@ -71,9 +71,9 @@ Modelos não lineares:
  - Redes neurais artificiais autorregressivas (AR-ANN)
 
 Estrutura: 
-Autorregressivo (AR): indica que a variável é regressada em seus valores anteriores. 
-Integrado (I): indica que os valores de dados foram substituídos com a diferença entre seus valores e os valores anteriores (diferenciação).
-Média móvel (MA): Indica que o erro de regressão é uma combinação linear dos termos de erro dos valores passados.
+- Autorregressivo (AR): indica que a variável é regressada em seus valores anteriores. 
+- Integrado (I): indica que os valores de dados foram substituídos com a diferença entre seus valores e os valores anteriores (diferenciação).
+- Média móvel (MA): Indica que o erro de regressão é uma combinação linear dos termos de erro dos valores passados.
 
 Codificação: (p, d, q)
 Parâmetro d só pode ser inteiro

@@ -57,6 +57,7 @@ Diferenciação -> A diferenciação, busca transformar uma série não estacion
  - Modelos não lineares: autorregressivo com limiar (TAR), autorregressivo com transição suave (STAR), troca de regime markoviano (MSM) e redes neurais artificiais autorregressivas (AR-ANN).
 
 #### Modelos das séries temporais:
+Modelos lineares:
  - Modelos autorregressivos (AR)
  - Modelos médias móveis (MA)
  - Modelos autorregressivos e médias móveis (ARMA)
@@ -75,23 +76,22 @@ Estrutura:
 - Integrado (I): indica que os valores de dados foram substituídos com a diferença entre seus valores e os valores anteriores (diferenciação).
 - Média móvel (MA): Indica que o erro de regressão é uma combinação linear dos termos de erro dos valores passados.
 
-Codificação: (p, d, q)
-Parâmetro d só pode ser inteiro
+Codificação: (p, d, q) Parâmetro d só pode ser inteiro, caso estivessemos trabalhando com um Modelo ARFIMA, o parâmetro d pode ser fracionado
 
-p = ordem da autorregressão.
-d = grau de diferenciação.
-q = ordem da média móvel.
+- p = ordem da autorregressão.
+- d = grau de diferenciação.
+- q = ordem da média móvel.
 
 Quando adicionamos a sazonalidade, além da codificação Arima (p, d, q), incluimos a codificação para a Sazonalidade (P, D, Q). Então um modelo SARIMA é definido por: (p, d, q)(P, D, Q)
 
 Exemplos:
-Modelo ARFIMA: (1, 0.25, 1)
-Modelo ARIMA: (2, 1, 1)
-Modelo AR: (1, 0, 0)
-Modelo MA (0, 0, 3)
-Modelo I: (0, 2, 0)
-Modelo ARMA: (4, 0, 1)
-Modelo SARIMA: (1, 1, 2)(2, 0, 1)
+- Modelo ARFIMA: (1, 0.25, 1) 
+- Modelo ARIMA: (2, 1, 1)
+- Modelo AR: (1, 0, 0)
+- Modelo MA (0, 0, 3)
+- Modelo I: (0, 2, 0)
+- Modelo ARMA: (4, 0, 1)
+- Modelo SARIMA: (1, 1, 2)(2, 0, 1)
 
 
 

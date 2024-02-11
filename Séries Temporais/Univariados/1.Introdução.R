@@ -1,7 +1,3 @@
-####################
-###  Introdução  ###
-####################
-
 ######################
 ### Série Temporal ###
 ######################
@@ -79,22 +75,112 @@ ur.df(serie1)
 #  - H1: são autocorrelacionados (p <= 0.05)
 Box.test (serie1, type = "Ljung")
 
-#################################
-### Decomposição e Suavização ###
-#################################
+####################
+### Decomposição ###
+####################
 
 library(help="datasets")
 sunspots
 plot(sunspots)
 
-### Decomposição ###
 decomposicao <- decompose(sunspots)
 plot(decomposicao)
 
-### Suavização ###
-suavizacao <- tsclean(sunspots)
-plot(suavizacao)
+#tsclean remove outliers identificados dessa maneira e os substitui (e quaisquer valores ausentes) por substituições interpoladas linearmente
+suavizacao <- tsclean(dados)
+plot(dados)
 
 # Comparação com o original
-plot(sunspots)
-lines(suavizacao, col="green")
+plot(dados)
+lines(suavizacao, col="red")
+
+####################################
+### Tranformação e Diferenciação ###
+####################################
+
+passageiros <- AirPassengers #Número de passageiros aéreos entre 1949 a 1960
+plot(passageiros)
+print (passageiros)
+
+# Testes de Normalidade
+#  - H0: resíduos normalmente distribuídos (p > 0.05)
+#  - H1: resíduos não são normalmente distribuídos (p <= 0.05)
+hist(passageiros)
+qqnorm(passageiros)
+qqline(passageiros)
+shapiro.test(passageiros)
+
+### Transformação log ###
+
+passageiros2 <- log(passageiros)
+hist(passageiros2)
+shapiro.test(passageiros2) #não foi muito eficiente
+
+### Transformação raiz cúbica (Expoencial) ###
+
+passageiros3 <- sign(passageiros)*abs(passageiros)^(1/3)
+hist(passageiros3)
+shapiro.test(passageiros3) #continua não foi muito eficiente
+
+#Comparando os modelos 
+
+qqnorm(passageiros2) #Modelo Log
+qqline(passageiros2)
+
+qqnorm(passageiros3) #Modelo Exponencial
+qqline(passageiros3)
+
+### Realizando Diferença ###
+
+decomposicao <- decompose(passageiros3)
+plot(decomposicao)
+
+# Teste pp (Philips-Perron)
+#   - H0 = é estacionária: p > 0.05
+#   - H1 = não é estacionária: p <= 0.05
+pp <- ur.pp(passageiros3)
+summary(pp)
+
+ndiffs(passageiros3) #indica quantas diferenças devem ser feitas
+
+# Primeira diferença
+dif_passageiros <- diff(passageiros3)
+dif_passageiros
+
+# Teste pp (Philips-Perron)
+#  - H0 = é estacionária: p > 0.05
+#  - H1 = não é estacionária: p <= 0.05
+pp <- ur.pp(dif_passageiros)
+summary(pp)
+
+# Segunda diferença
+dif_passageiros2 <- diff(dif_passageiros)
+
+pp <- ur.pp(dif_passageiros2)
+summary(pp)
+
+##################
+### Suavização ###
+##################
+
+passageiros <- ts(AirPassengers, start = c(1949), end = c(1960), frequency = 12)
+print(passageiros)
+plot(passageiros, type="l", ylab="Fluxo Internacional de Passageiros de Avião ",col="blue")
+
+### MMS ###
+passageiros2 <- ma(passageiros, order = 7) 
+plot(passageiros2)
+
+passageiros3 <- ma(passageiros, order = 20, centre = TRUE) #centre = TRUE -> apenas se a order número par (teória)
+plot(passageiros3)
+
+passageiros4 <- ma(passageiros, order = 51, centre = TRUE)
+plot(passageiros4)
+
+plot(passageiros)
+lines(passageiros2, col = "red")
+lines(passageiros3, col = "green")
+lines(passageiros4, col = "blue")
+
+Ter autocorrelacao não e o problema mas a corrlacao com os residuos 
+Diferenca funcao de autocorrelacao e autocorelacao parcial 

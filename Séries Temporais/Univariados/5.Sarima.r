@@ -1,39 +1,5 @@
-library(dplyr)
-library(tidyverse)
-library(TeachingDemos)
-library(EnvStats)
-library(dygraphs)
-library(xtable)
-library(stargazer)
-library(highcharter)
-library(quantmod)
-library(dygraphs)
-library(tseries)
-library(htmltools)
-library(Quandl)
-library(nycflights13)
-library(magrittr)
-library(discreteRV)
-library(aTSA)
-library(fGarch)
-library(fUnitRoots)
-library(vars)
-library(MTS)
-library(seasonal)
-library(dynlm)
-library(tbl2xts)
-library(dlm)
-library(stats)
-library(tcltk)
-library(forecast)
-library(ggplot2)
-library(PerformanceAnalytics)
-library(nortest)
-library(scales)
-library(readxl)
-
-dadosx <- read_excel("C:/Users/henri/OneDrive/Repositórios/venda.xls")
-dados_l <- dadosx$"valor"
+dados <- read_excel("C:/Users/henri/OneDrive/Repositórios/venda.xls")
+dados_l <- dados$"valor"
 dados <- ts(dados_l, frequency = 12, star= c(1990,1))
 
 glimpse(dados)
@@ -202,12 +168,14 @@ jarque.bera.test(modelos[[best1]]$residuals)
 ################
 ### Previsão ###
 ################
-
+?n.ahead
 # Uma vez que os resíduos são ruído branco, obter as previsões.
 
 modelo_prev <- arima(dados, order = c(0,1,0), seasonal = list(order=c(0,1,1), period = 12))
 prev <- predict(modelo_prev, n.ahead = 12)
 print(prev)
+
+# - n.ahead: número de passos à frente para os quais você deseja prever valores futuros 
 
 #Gráfico da previsão
 

@@ -1,3 +1,44 @@
+# Carregando pacotes
+library(dplyr)
+library(tidyverse)
+library(TeachingDemos)
+library(EnvStats)
+library(readr)
+library(readxl)
+library(xtable)
+library(stargazer)
+library(highcharter)
+library(quantmod)
+library(dygraphs)
+library(tseries)
+library(htmltools)
+library(Quandl)
+library(nycflights13)
+library(magrittr)
+library(discreteRV)
+library(aTSA)
+library(fGarch)
+library(fUnitRoots)
+library(forecast)
+library(vars)
+library(MTS)
+library(seasonal)
+library(dynlm)
+library(tbl2xts)
+library(dlm)
+library(stats)
+library(tcltk)
+library(forecast)
+library(ggplot2)
+library(PerformanceAnalytics)
+library(nortest)
+library(scales)
+library(GetBCBData) 
+library(ipeadatar) 
+library(sidrar) 
+library(stringr)
+
+
 # Instalando pacotes (Alternativa 1)
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(tidyverse)){install.packages("tidyverse")}
@@ -35,64 +76,25 @@ if(!require(PerformanceAnalytics)){install.packages("PerformanceAnalytics")}
 if(!require(nortest)){install.packages("nortest")}
 if(!require(scales)){install.packages("scales")}
 if(!require(seasonalview)){install.packages("seasonalview")}
+if(!require(GetBCBData)){install.packages("GetBCBData")}
+if(!require(ipeadatar)){install.packages("ipeadatar")}
+if(!require(sidrar)){install.packages("sidrar")}
+if(!require(stringr)){install.packages("stringr")}
+
 
 # Instalando pacotes (Alternativa 2)
-install.packages = c("tidyverse", "TeachingDemos", "EnvStats","readr","readxl",  "xtable", "stargazer", "highcharter", "quantmod",
-"dygraphs","tseries", "htmltools", "Quandl", "nycflights13", "magrittr","discreteRV", "aTSA", "fGarch", "fUnitRoots", "vars", "MTS", "seasonal",
-"urca", "dynlm", "tbl2xts", "dlm", "stats", "tcltk", "tcltk2", "forecast", "Quandl", "dygraphs", "magrittr", "PerformanceAnalytics", "quantmod",
-"tseries","nortest","scales", "ggpubr","ggplot2", "dplyr")
+# install.packages = c("tidyverse", "TeachingDemos", "EnvStats","readr","readxl",  "xtable", "stargazer", "highcharter", "quantmod",
+# "dygraphs","tseries", "htmltools", "Quandl", "nycflights13", "magrittr","discreteRV", "aTSA", "fGarch", "fUnitRoots", "vars", "MTS", "seasonal",
+# "urca", "dynlm", "tbl2xts", "dlm", "stats", "tcltk", "tcltk2", "forecast", "Quandl", "dygraphs", "magrittr", "PerformanceAnalytics", "quantmod",
+# "tseries","nortest","scales", "ggpubr","ggplot2", "dplyr")
 
-.inst <- .packages %in% installed.packages()
+# .inst <- .packages %in% installed.packages()
 
-if (length(.packages[!.inst]) > 0) {
-for (package in 1:length(.packages)) {
+# if (length(.packages[!.inst]) > 0) {
+# for (package in 1:length(.packages)) {
 
-print(install.packages)
-message("Pacotes carregados")
+# print(install.packages)
+# message("Pacotes carregados")
 
 # Remover Pacote
 remove.packages("argo")
-
-# Carregando pacotes
-library(dplyr)
-library(tidyverse)
-library(TeachingDemos)
-library(EnvStats)
-library(readr)
-library(readxl)
-library(xtable)
-library(stargazer)
-library(highcharter)
-library(quantmod)
-library(dygraphs)
-library(tseries)
-library(htmltools)
-library(Quandl)
-library(nycflights13)
-library(magrittr)
-library(discreteRV)
-library(aTSA)
-library(fGarch)
-library(fUnitRoots)
-library(forecast)
-library(vars)
-library(MTS)
-library(seasonal)
-library(dynlm)
-library(tbl2xts)
-library(dlm)
-library(stats)
-library(tcltk)
-library(forecast)
-library(ggplot2)
-library(PerformanceAnalytics)
-library(nortest)
-library(scales)
-
-
-##########################
-### Criar CSV no Excel ###
-##########################
-
-# =CONCAT(A1;",";B1;",";C1;",";D1;",";E1;",";F1;",";G1;",";H1;",";I1;",";J1;",";K1;",";
-#L1;",";M1;",";N1;",";O1;",";P1;",";Q1;",";R1;",";S1;",";T1;",";U1;",";V1;",";W1)

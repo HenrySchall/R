@@ -8,7 +8,7 @@
 
 set.seed(123) #definindo mesmo ponto inicial
 
-ar1 <- arima.sim(modelo = list(order = c(1,0,0), ar = c(0.5)), n = 1000, rand.gen = rnorm)
+ar1 <- arima.sim(model = list(order = c(1,0,0), ar = c(0.5)), n = 1000, rand.gen = rnorm)
 
 # model: uma lista com as especificações ar, diff e ma do modelo com as seguintes opções:
 # order: a ordem do modelo (p,d,q)
@@ -29,7 +29,7 @@ plot.ts(ar1, main = "AR(1) Simulado", xlab = "Tempo", ylab = "")
 ### Função FAC e FACP ###
 #########################
 
-# Função de autocorrelação
+# Função de autocorrelação (FAC)
 acf_ar1 <- acf(ar1, na.action = na.pass)
 plot(acf_ar1, main = "", ylab = "", xlab = "Defasagem")
 title("Função de Autocorrelação (FAC)")
@@ -38,7 +38,7 @@ title("Função de Autocorrelação (FAC)")
 #   - adj define a posição do titulo
 #   - line define a altura do título
 
-# Função de autocorrelação parcial
+# Função de autocorrelação parcial (FACP)
 pacf_ar1 <- pacf(ar1, na.action = na.pass)
 plot(pacf_ar1, main = "", ylab = "", xlab = "Defasagem")
 title("Função de Autocorrelação Parcial (FACP)")
@@ -46,12 +46,14 @@ title("Função de Autocorrelação Parcial (FACP)")
 # Análise dos resíduos 
 checkresiduals(ar1)
 
-#################
-### Estimação ###
-#################
+################
+### Previsão ###
+################
 
-previsao_ar1 <- forecast(ar1, order=c(1,0,0))
-previsao$coef
+previsao_ar1 <- arima(ar1, order=c(1,0,0))
+previsao_ar1$coef
+
+previsao_ar1 <- forecast(object = ar1, level = 95, h = 10)
 plot(previsao_ar1)
 
 #################
@@ -69,8 +71,10 @@ pacf_ar2 <- pacf(ar2)
 plot(pacf_ar2, main = "", ylab = "", xlab = "Defasagem")
 title("Função de Autocorrelação Parcial (FACP)")
 
-previsao_ar2 <- forecast(ar2, order=c(2,0,0))
-previsao$coef
+previsao_ar2 <- arima(ar2, order=c(2,0,0))
+previsao_ar2$coef
+
+previsao_ar2 <- forecast(object = ar2, level = 95, h = 10)
 plot(previsao_ar2)
 
 #########################
@@ -94,10 +98,12 @@ pacf_ma1 <- pacf(ma1, na.action = na.pass)
 plot(pacf_ma1, main = "", ylab = "", xlab = "Defasagem")
 title("Função de Autocorrelação Parcial (FACP)")
 
-checkresiduals(ar1)
+checkresiduals(ma1)
 
-previsao_ma1 <- forecast(ma1, order=c(0,0,1))
-previsao$coef
+previsao_ma1 <- arima(ma1, order=c(0,0,1))
+previsao_ma1$coef
+
+previsao_ma1 <- forecast(object = ma1, level = 95, h = 10)
 plot(previsao_ma1)
 
 #################
@@ -115,8 +121,10 @@ pacf_ma2 <- pacf(ma2, na.action = na.pass)
 plot(pacf_ma2, main = "", ylab = "", xlab = "Defasagem")
 title("Função de Autocorrelação Parcial (FACP)")
 
-previsao_ma2 <- forecast(ma1, order=c(0,0,2))
-previsao$coef
+previsao_ma2 <- arima(ma2, order=c(0,0,2))
+previsao_ma2$coef
+
+previsao_ma2 <- forecast(object = ma2, level = 95, h = 10)
 plot(previsao_ma2)
 
 ###########################
@@ -139,10 +147,6 @@ title("Função de Autocorrelação (FAC)")
 pacf_arma11 <- pacf(arma11, na.action = na.pass)
 plot(pacf_arma11, main = "", ylab = "", xlab = "Defasagem")
 title("Função de Autocorrelação Parcial (FACP)")
-
-model_arma <- arima(arma11, order=c(1,0,1))
-coeftest(model_arma)
-model_arma$coef
 
 ################################################
 ### Escolhendo a melhor combinação usando MV ###
@@ -176,84 +180,59 @@ tamanho_amostra <- rep(length(arma11), length(modelo))
 resultado <- data.frame(especificacao, ln_verossimilhanca = unlist(log_verossimilhanca),
 quant_paramentros = unlist(quant_paramentros),tamanho_amostra, aic = unlist(aicarma), bic = unlist(bicarma))
 
-View(resultado)
+print(resultado)
 
 # Escolhendo o melhor modelo
 which.min(resultado$aic) 
 which.min(resultado$bic)
 
+# Gerar a tabela usamos a função stargazer
+stargazer(modelo[[5]], type = "text", title = "Resultado Estimação modelo ARMA(1,1)")
 
-
-
-
-
-#####
-##   PARÂMETROS ESTIMADOS PARA O MODELO COM MENOR AIC E/OU BIC
-#####
-
-# Aqui, usamos o número 5 para selecionar o modelo escolhido anteriormente. 
-# Observe que o modelo ARMA(1,1) estava na linha 5 da tabela com todos os 
-# demais modelos. Para gerar a tabela usamos a função stargazer do pacote stargazer
-#stargazer::stargazer(modelo[[5]], type = "text", title = "Resultado Estimação modelo ARMA(1,1)")
-coeftest(modelo[[5]])
-
-#####
-##   VERIFICAR RESÍDUOS DO MODELO COM MENOR AIC E/OU BIC
-#####
+##########################
+### Verificar Residuos ###
+##########################
 
 # Teste de autocorrelação dos resíduos
-#  - H0: resíduos são não autocorrelacionados
-#  - H1: resíduos são autocorrelacionados
-acf_arma11_est <- stats::acf(modelo[[5]]$residuals, na.action = na.pass, plot = FALSE, lag.max = 15)
-plot(acf_arma11_est, main = "", ylab = "", xlab = "Defasagem")
-title("Função de Autocorrelação (FAC) dos Resíduos", adj = 0.5, line = 1)
+#  - H0: resíduos são não autocorrelacionados (p > 0.05)
+#  - H1: resíduos são autocorrelacionados (p <= 0.05)
+acf_arma11_est <- acf(modelo[[5]]$residuals, na.action = na.pass, plot = FALSE, lag.max = 20)
+plot(acf_arma11_est, main = "", ylab = "", xlab = "Defasagem") #correlacionado apenas com ele mesmo 
 Box.test(modelo[[5]]$residuals,type="Ljung",lag=1)
 
+# LEMBRE-SE: Ter autocorrelação não e um problema (questão de grau), mas ter autocorrelção com os 
+# resíduos sim.
+
 # Teste de heterocedasticidade condicional
-#  - H0: quadrado dos resíduos são não autocorrelacionados
-#  - H1: quadrado dos resíduos são autocorrelacionados
+#  - H0: quadrado dos resíduos são não autocorrelacionados (p > 0.05)
+#  - H1: quadrado dos resíduos são autocorrelacionados (p <= 0.05)
 acf_residuals = acf(modelo[[5]]$residuals^2, na.action = na.pass, plot = FALSE, lag.max = 20)
 plot(acf_residuals, main = "", ylab = "", xlab = "Defasagem")
-title("FAC do quadrado dos resíduos", adj = 0.5, line = 1)
 Box.test(modelo[[5]]$residuals^2,type="Ljung",lag=1)
-#archTest(modelo[[5]]$residuals)
 
 # Teste de Normalidade dos resíduos. As hipóteses para os dois testes são:
-#  - H0: resíduos normalmente distribuídos
-#  - H1: resíduos não são normalmente distribuídos
-#shapiro.test(na.remove(modelo[[5]]$residuals))
-shapiro.test(na.remove(modelo[[5]]$residuals))
-
-#jarque.bera.test(na.remove(modelo[[5]]$residuals))
+#  - H0: resíduos normalmente distribuídos (p > 0.05)
+#  - H1: resíduos não são normalmente distribuídos (p <= 0.05)
+# shapiro.test(na.remove(modelo[[5]]$residuals))
 jarque.bera.test(na.remove(modelo[[5]]$residuals))
 
-#####
-##   PONTO DE ATENÇÃO
-#####
-
-# No momento que simulamos os dados do modelo arma(1,1) optamos pela função rnorm para gerar
-# o termo de erro. Assim, estamos dizendo que a variável aleatória do termo de erro segue 
-# uma normal com média 0 e variância 1 (que é o comportamento default da função rnorm).
-# Caso optássemos por outra distribuição de probabilidade (como por exemplo, a t de Student),
-# estamos assumindo que o termo de erro segue tal distribuição e neste caso, o teste para 
-# verificar se os resíduos obtidos após o processo de estimação deve ser alterado (por exemplo,
-# o teste Kolmogorov-Smirnov)
-
-#####
-##   Se os resíduos são ruído branco, obtem-se as previsões.
-#####
+# Se os resíduos são ruído branco, obtem-se as previsões.
 
 # Previsão do valor médio condicional esperado e respectivo desvio
 # - object: o modelo escolhido anteriormente
-# - level: o intervalo de confiança (abaixo, 80%)
+# - level: o intervalo de confiança
 # - h: o horizonte de previsão
-forecast::forecast(object = modelo[[5]], level = 95, h = 10)
 
-# gráfico da previsão
-plot(forecast::forecast(object = modelo[[5]], level = 95, h = 10))
+forecast(object = modelo[[5]], level = 95, h = 10)
+plot(forecast(object = modelo[[5]], level = 95, h = 10))
+modelo[[5]]$coef
 
-# http://faculty.chicagobooth.edu/ruey.tsay/teaching/bs41202/sp2017/IntroPackages.pdf
-# http://www.unstarched.net/r-examples/rugarch/a-short-introduction-to-the-rugarch-package/
+##################
+### Observação ###
+##################
 
-
-
+# No momento que simulamos os dados do modelo optamos pela função rnorm para gerar o termo 
+# de erro. Assim, estamos dizendo que a variável aleatória do termo de erro segue uma normal. 
+# Caso optássemos por outra distribuição de probabilidade, estariamos assumindo que o termo 
+# de erro segue tal distribuição. Se por exemplo fosse uma t-student, o teste para verificar 
+# se os resíduos obtidos após o processo de estimação deve ser alterado. 

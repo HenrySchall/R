@@ -181,6 +181,3 @@ plot(passageiros)
 lines(passageiros2, col = "red")
 lines(passageiros3, col = "green")
 lines(passageiros4, col = "blue")
-
-Ter autocorrelacao não e o problema mas a corrlacao com os residuos 
-Diferenca funcao de autocorrelacao e autocorelacao parcial 

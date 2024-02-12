@@ -10,13 +10,6 @@ sep = ";", header=TRUE, encoding="UTF-8")
 
 View(dados)
 
-# header = cabeçario
-# stringsAsFactors = considerar todas as caracteres como fatores
-# sep = separando as variáveis 
-# fileEncoding = "UTF-8" or "latin1"
-# read.csv -> o default é sep=”,” e dec=”.”
-# read.csv2 -> o default é sep=”;” e dec=”,”.
-
 #############################
 ### Tipagem dos atributos ###
 #############################

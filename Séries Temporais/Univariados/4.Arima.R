@@ -110,7 +110,6 @@ plot(forecast(object = modelo_microsoft[[5]], level = 95, h = 10))
 modelo_microsoft[[5]]$coef
 
 # Comparando modelo real x modelo ajustado 
-
 fitted_microsoft <- fitted(modelo_microsoft[[5]])
 plot.ts(microsoft_tratado, type = "l", lty = 1, col = 2)
 lines(fitted_microsoft, type = "l", lty = 1, col = 1)

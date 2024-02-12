@@ -2,14 +2,9 @@
 #### Ggplot2 #####
 ##################
 
-# "Esse arquivo tem como intuito explicar o funcionamento do pacote 
-# gráfico ggplot2, mais informações podem ser vistas no link: 
 # https://ggplot2.tidyverse.org/reference/ggplot.html"
 
-getwd()
-setwd("C:/Users/henri/OneDrive/Códigos/R") 
-
-dados <- read.csv("C:/Users/henri/OneDrive/Repositórios/R/Introdução/Dados/sell_bmw_eu.csv",
+dados <- read.csv2("C:/Users/henri/OneDrive/Repositórios/R/Introdução/Dados/sell_bmw_eu.csv",
 header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
 
 View(dados)
@@ -18,6 +13,19 @@ str(dados)
 ##########################
 ### Camadas do ggplot2 ###
 ##########################
+
+##################################
+### Modificando Tipo Primitivo ###
+##################################
+
+dados$model <- as.factor(dados$model)
+dados$registration_date <- as.Date(dados$registration_date , format = "%Y-%m-%d") 
+dados$sold_at <- as.Date(dados$sold_at, format = "%Y-%m-%d")
+
+# Y maiúsculo significa que nosso formato possui 4 dígitos
+# Format deve ser similar ao padrão do banco de dados
+
+
 
 # 1. dados
 # 2. estética (aes) -> eixo X e eixo Y

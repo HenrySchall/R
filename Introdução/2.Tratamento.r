@@ -3,125 +3,100 @@
 ###########################
 
 getwd() #representa o diretório de trabalho atual do processo R
-setwd("C:/Users/henri/OneDrive/Códigos/R") #comando para definir o diretório de trabalho
+setwd("C:/Users/henri/OneDrive/Repositórios") #comando para definir o diretório de trabalho
 
-dados <- read.csv("C:/Users/henri/OneDrive/Repositórios/R/Introdução/Dados/sell_bmw_eu.csv",
-sep = ";", header=TRUE, stringsAsFactors=FALSE, fileEncoding="latin1")
+dados <- read.csv2("C:/Users/henri/OneDrive/Repositórios/R/Introdução/Datasets/chuva_mensal_sp.csv",
+sep = ";", header=TRUE, encoding="UTF-8")
+
+View(dados)
 
 # header = cabeçario
 # stringsAsFactors = considerar todas as caracteres como fatores
 # sep = separando as variáveis 
 # fileEncoding = "UTF-8" or "latin1"
-# read.csv -> separa as variáveis númericas por .
-# read.csv2 -> separa as variáveis númericas por ,
+# read.csv -> o default é sep=”,” e dec=”.”
+# read.csv2 -> o default é sep=”;” e dec=”,”.
 
-str(dados) #mostra o tipo de dado
+#############################
+### Tipagem dos atributos ###
+#############################
 
-##############################################
-### Verificando valores missing (Ausentes) ###
-##############################################
-
-# NA = valores ausentes
-# NAN = not a number(valor indefinido)
-
-sapply(chuva, function(x) sum(is.na(x)))
-sapply(chuva, function(x) sum(is.nan(x)))
-
-##################################
-### Substituir valores missing ###
-##################################
-
-covid_sp2 <- replace(x = covid_sp,list = is.na(covid_sp), values=0)
-sapply(covid_sp2, function(x) sum(is.na(x)))
-
-# TIPAGEM DOS ATRIBUTOS (Variáveis)
 # EXISTEM 7 TIPOS BÁSICOS:
 # character (caracteres)
 # integer (números inteiros)
-# numeric (n?meros reais)
+# numeric (números reais)
 # logical (falso ou verdadeiro)
 # complex (n?meros complexos)
 # factor (fator: Sequ?ncia de valores definidos por n?veis)
 # date (data)
 
+str(dados)
+
+###########################
+### Modificando tipagem ###
+###########################
+
+# Nesse caso não foi necessário
+# dados$Janeiro <- as.numeric(dados$Janeiro)
+# dados$Fevereiro <- as.numeric(dados$Fevereiro)
+# dados$Março <- as.numeric(dados$Março)
+# dados$Maio <- as.numeric(dados$Maio)
+# dados$Junho <- as.numeric(dados$Junho)
+# dados$Julho <- as.numeric(dados$Julho)
+# dados$Agosto <- as.numeric(dados$Agosto)
+# dados$Setembro <- as.numeric(dados$Setembro)
+# dados$Outubro <- as.numeric(dados$Outubro)
+# dados$Novembro <- as.numeric(dados$Novembro)
+# dados$Dezembro <- as.numeric(dados$Dezembro)
+
+# View(dados)
+
 #####################################
 ######   Eliminando linha    ########
 #####################################
 
-dados <- dados [c(-1),] 
+dados <- dados [c(-25),] 
+# dados <- dados %>% filter(ano!="Media")
+
 View(dados)
-
-##################################
-### Modificando Tipo Primitivo ###
-##################################
-
-dados$model <- as.factor(dados$model)
-dados$registration_date <- as.Date(dados$registration_date , format = "%Y-%m-%d") 
-dados$sold_at <- as.Date(dados$sold_at, format = "%Y-%m-%d")
-
-# Y maiúsculo significa que nosso formato possui 4 dígitos
-# Format deve ser similar ao padrão do banco de dados
 
 #######################
 ### Eliminar coluna ###
 #######################
 
-dados <- dados %>% mutate(maker_key = NULL)
-dados <- dados %>% mutate(feature_1 = NULL)
-dados <- dados %>% mutate(feature_2 = NULL)
-dados <- dados %>% mutate(feature_3 = NULL)
-dados <- dados %>% mutate(feature_4 = NULL)
-dados <- dados %>% mutate(feature_5 = NULL)
-dados <- dados %>% mutate(feature_6 = NULL)
-dados <- dados %>% mutate(feature_7 = NULL)
-dados <- dados %>% mutate(feature_8 = NULL)
-dados <- dados %>% mutate(model_key = NULL)
+# dados <- subset(dados, select = -c(ano))
 
-dados
-head(dados) # mostrando os 6 primeiros
+###################################
+### Verificando valores missing ###
+###################################
 
+# NA = valores ausentes (iguais a zero)
+# NAN = not a number(valor indefinido)
+sapply(dados, function(x) sum(is.na(x)))
+sapply(dados, function(x) sum(is.nan(x)))
 
-#Substituir valores missing
+##################################
+### Substituir valores missing ###
+##################################
 
-chuva$Janeiro[is.na(chuva$Janeiro)] <- mean(chuva$Janeiro[which(chuva$Janeiro!='NA')])
-chuva$Fevereiro[is.na(chuva$Fevereiro)] <- mean(chuva$Fevereiro[which(chuva$Fevereiro!='NA')])
-chuva$Mar�o[is.na(chuva$Mar�o)] <- mean(chuva$Mar�o[which(chuva$Mar�o!='NA')])
-chuva$Maio[is.na(chuva$Maio)] <- mean(chuva$Maio[which(chuva$Maio!='NA')])
-chuva$Junho[is.na(chuva$Junho)] <- mean(chuva$Junho[which(chuva$Junho!='NA')])
-chuva$Julho[is.na(chuva$Julho)] <- mean(chuva$Julho[which(chuva$Julho!='NA')])
-chuva$Agosto[is.na(chuva$Agosto)] <- mean(chuva$Agosto[which(chuva$Agosto!='NA')])
-chuva$Setembro[is.na(chuva$Setembro)] <- mean(chuva$Setembro[which(chuva$Setembro!='NA')])
-chuva$Outubro[is.na(chuva$Outubro)] <- mean(chuva$Outubro[which(chuva$Outubro!='NA')])
-chuva$Novembro[is.na(chuva$Novembro)] <- mean(chuva$Novembro[which(chuva$Novembro!='NA')])
-chuva$Dezembro[is.na(chuva$Dezembro)] <- mean(chuva$Dezembro[which(chuva$Dezembro!='NA')])
+# Substituindo pela média
+dados$Janeiro[is.na(dados$Janeiro)] <- mean(dados$Janeiro[which(dados$Janeiro!='NA')])
+dados$Fevereiro[is.na(dados$Fevereiro)] <- mean(dados$Fevereiro[which(dados$Fevereiro!='NA')])
+dados$Março[is.na(dados$Março)] <- mean(dados$Março[which(dados$Março!='NA')])
+dados$Maio[is.na(dados$Maio)] <- mean(dados$Maio[which(dados$Maio!='NA')])
+dados$Junho[is.na(dados$Junho)] <- mean(dados$Junho[which(dados$Junho!='NA')])
+dados$Julho[is.na(dados$Julho)] <- mean(dados$Julho[which(dados$Julho!='NA')])
+dados$Agosto[is.na(dados$Agosto)] <- mean(dados$Agosto[which(dados$Agosto!='NA')])
+dados$Setembro[is.na(dados$Setembro)] <- mean(dados$Setembro[which(dados$Setembro!='NA')])
+dados$Outubro[is.na(dados$Outubro)] <- mean(dados$Outubro[which(dados$Outubro!='NA')])
+dados$Novembro[is.na(dados$Novembro)] <- mean(dados$Novembro[which(dados$Novembro!='NA')])
+dados$Dezembro[is.na(dados$Dezembro)] <- mean(dados$Dezembro[which(dados$Dezembro!='NA')])
 
-sapply(chuva, function(x) sum(is.na(x)))
-str(chuva)
+View(dados)
 
-#Excluir Linhas
-chuva2 <- chuva %>% filter(ano!=2021)
-chuva2 <- chuva2 %>% filter(ano!="Media")
-View(chuva2)
+##############################
+### Exportação de arquivos ###
+##############################
 
-# EXCLUIR UMA COLUNA
-chuva2 <- subset(chuva2, select = -c(ano))
+write.table(dados, file ="chuvas_mensal_sp_tratado.csv", sep = ";")
 
-# Exporta��o de arquivos
-write.table(chuva2, file ="chuva_tratado.csv", sep = ";")
-
-chuva$Janeiro <- as.numeric(chuva$Janeiro)
-chuva$Fevereiro <- as.numeric(chuva$Fevereiro)
-chuva$Mar�o <- as.numeric(chuva$Mar�o)
-chuva$Maio <- as.numeric(chuva$Maio)
-chuva$Junho <- as.numeric(chuva$Junho)
-chuva$Julho <- as.numeric(chuva$Julho)
-chuva$Agosto <- as.numeric(chuva$Agosto)
-chuva$Setembro <- as.numeric(chuva$Setembro)
-chuva$Outubro <- as.numeric(chuva$Outubro)
-chuva$Novembro <- as.numeric(chuva$Novembro)
-chuva$Dezembro <- as.numeric(chuva$Dezembro)
-
-
-# Renomeando vari�veis (colunas)
-chuva <- rename(chuva, ano = X.U.FEFF.Ano)
-View(chuva)

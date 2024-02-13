@@ -37,8 +37,7 @@ Estacionaridade -> é quando uma série temporal apresenta todas suas caracterí
 Passeio Aleatório (Random Walk) -> é a soma de pequenas flutuações estocásticas (tendência estocástica)
 Matematicamente: 𝑍𝑡 = 𝑍(𝑡−1)+ et
 
-Autocorrelação -> é a correlação de determinados períodos anteriores com o período atual, ou seja, o grau de dependência serial. Onde cada período desse tipo de correlação é denominado lag (defasagem) e sua análise 
-é o pressuposto para se criar previsões.
+Autocorrelação -> é a correlação de determinados períodos anteriores com o período atual, ou seja, o grau de dependência serial. Cada período desse tipo de correlação é denominado lag (defasagem) e sua representação é feita pela Função de Autocorrelação (FAC) e a Função de Autocorrelação Parcial (FACP), ambas comparam o valor presente com os valores passados da série, a diferença entre eles é que a FAC analisa tanto a correlação direta como a indireta, já a FACP apenas correlação direta. Então podemos dizer, que a FAC vê a correlação direta do mês de janeiro em março e também a correlação indireta que o mês de janeiro teve em fevereiro que também teve em março, enquanto que a FACP apenas a correlação de janeiro em março. Essa análise é feita, porque é o pressuposto essencial para se criar previsões eficientes de uma série.
 
 Ruído Branco (White Noise) -> é quando o erro de uma série temporal, segue uma distribuição normal, ou seja, um processo puramente aleatório. 
 - E(Xt) = 0 
@@ -53,7 +52,7 @@ Transformação e Suavização -> São técnicas que buscam deixar a série o ma
 
 Diferenciação -> A diferenciação, busca transformar uma série não estacionária em estacionária, por meio da diferença de dois períodos consecutivos
 
-#### Modelos das séries temporais:
+#### Modelos das séries temporais univariados:
 Modelos lineares:
  - Modelos autorregressivos (AR)
  - Modelos médias móveis (MA)

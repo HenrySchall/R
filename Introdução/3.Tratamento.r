@@ -57,7 +57,7 @@ View(dados)
 ### Eliminar coluna ###
 #######################
 
-# dados <- subset(dados, select = -c(ano))
+dados <- subset(dados, select = -c(Ano))
 
 ###################################
 ### Verificando valores missing ###

@@ -2,17 +2,11 @@
 ####     PASSEIO ALEATÓRIO   ###
 ################################
 
-#####
-##   PACOTES NECESSÁRIOS
-#####
 
-source("/cloud/project/install_and_load_packages.R")
+###################################
+### PASSEIO ALEATÓRIO SEM DRIFT ###
+###################################
 
-#####
-##   PASSEIO ALEATÓRIO SEM DRIFT
-#####
-
-# Definir ponto inicial para permitir replicar o exemplo. Gerar mesmos valores aleatórios
 set.seed(123)
 
 # Simulação de um passeio aleatório sem drift

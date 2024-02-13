@@ -22,6 +22,10 @@ dados_x <- dados$"value"
 serie <- ts(dados_x, frequency = 12, star= c(2000), end=(2004))
 plot(serie)
 
+# Se tivermos uma base tratada, uma outra alterntiva seria transformar dataframe em vetor.
+# dados_vec <- as.vector(t(dados))
+# print(dados_vec)
+
 ############
 ### IPEA ###
 ############

@@ -1,3 +1,57 @@
+####################################
+### Modelo SARIMA (p,d,q)(P,D,Q) ###
+####################################
+
+###########################################
+### Exemplo 1 - VENDAS PASSAGENS AÉREAS ###
+###########################################
+
+air_passengers <- ts(AirPassengers, start = c(1949, 1), frequency = 12)
+plot(air_passengers, xlab = "Ano", ylab = "Quantidade", main = "Passagens Aéreas Vendidas pela Pan Am nos EUA")
+
+# Diminuir o impacto de outliers (interpolação)
+air_passengers_clean <- tsclean(air_passengers, replace.missing = TRUE)
+lines(air_passengers_clean, col = "blue")
+
+# Examinar a existência de tendência e/ou sazonalidade
+decomp <- stl(air_passengers)
+colnames(decomp$time.series) = c("sazonalidade","tendência","restante")
+plot(decomp)
+
+# Outra alternativa
+# decomp <- decompose(air_passengers)
+# plot(decomp)
+
+# Estabilizar a variância (logaritmo dos dados
+log_air_passengers <- (log(air_passengers))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 dados <- read_excel("C:/Users/henri/OneDrive/Repositórios/venda.xls")
 dados_l <- dados$"valor"
 dados <- ts(dados_l, frequency = 12, star= c(1990,1))

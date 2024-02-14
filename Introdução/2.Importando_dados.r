@@ -7,7 +7,7 @@
 # - xts: no formato xts
 # - timeSeries: série financeira
 
-# Configurando API (https://data.nasdaq.com/publishers/QDL) -> criar sua própria API
+# Configurando API (https://data.nasdaq.com/publishers/QDL) -> criar sua própria API Key
 Quandl.api_key("iVtrK8_YHwXzG9pA4mmQ")
 
 ###########
@@ -16,10 +16,12 @@ Quandl.api_key("iVtrK8_YHwXzG9pA4mmQ")
 
 dados <- gbcbd_get_series(id = 4380, first.date = "2000-01-01",last.date = Sys.Date())
 View(dados)
+dygraph(dados, main = "Título") %>% dyRangeSelector()
 
 # Criando série
 dados_x <- dados$"value"
 serie <- ts(dados_x, frequency = 12, star= c(2000), end=(2004))
+title("Título")
 plot(serie)
 
 # Se tivermos uma base tratada, uma outra alterntiva seria transformar dataframe em vetor.

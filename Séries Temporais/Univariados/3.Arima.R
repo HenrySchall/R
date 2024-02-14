@@ -1,3 +1,66 @@
+#########################
+### Passeio aleatório ###
+#########################
+
+set.seed(123)
+
+# Configurando R para dividir a página de gráficos em duas linhas e uma coluna. Porque temos 2 gráficos
+par(mfrow=c(2,1)) 
+
+# Retornar o ambiente para ter um gráfico por página, ou seja, uma linha e uma coluna
+par(mfrow=c(1,1)) 
+
+###################################
+### Passeio aleatório sem drift ###
+###################################
+
+n <- 1000
+p0 <- 10
+phi1 <- 1
+pt <- rep(p0,n)
+for (i in 1:(n-1)) {pt[i+1] <- phi1*pt[i] + rnorm(1)}
+
+# Visualização do passeio aleatório.
+plot(pt, type = "l", xlab = "", ylab = "preço", main = "Simulação Passeio Aleatório sem Drift")
+
+# Visualização da primeira diferença do passeio aleatório, que é estacionário
+plot(diff(pt), type = "l", xlab = "", ylab = "", main = "Diferença nos preços - Estacionária")
+
+###################################
+### Passeio aleatório com drift ###
+###################################
+
+n <- 1000
+p0 <- 10
+mi <- 0.2
+phi1 <- 1
+pt_drift <- rep(p0,n)
+for (i in 1:(n-1)) {pt_drift[i+1] <- mi + phi1*pt_drift[i] + rnorm(1)}
+
+# Visualização do passeio aleatório com drift
+plot(pt_drift, type = "l", xlab = "", ylab = "preço", main = "Simulação Passeio Aleatório com Drift")
+
+# Visualização da primeira diferença do passeio aleatório que é estacionário
+plot(diff(pt_drift), type = "l", xlab = "", ylab = "", main = "Diferença nos preços - Estacionária")
+
+###############################################
+### Passeio aleatório com drift e tendência ###
+###############################################
+
+n <- 1000
+p0 <- 10
+mi <- 0.2
+phi1 <- 1
+trend <- 1:n
+pt_drift_trend <- rep(p0,n)
+for (i in 1:(n-1)) {pt_drift_trend[i+1] <- mi + trend + phi1*pt_drift_trend[i] + rnorm(1)}
+
+# Visualização do passeio aleatório com drift
+plot(pt_drift_trend, type = "l", xlab = "", ylab = "preço", main = "Simulação Passeio Aleatório com Drift")
+
+#  Visualização da primeira diferença do passeio aleatório que é estacionário
+plot(diff(pt_drift_trend), type = "l", xlab = "", ylab = "", main = "Diferença nos preços - Estacionária")
+
 ############################
 ### Modelo ARIMA (p,d,q) ###
 ############################
@@ -31,6 +94,12 @@ plot.xts(microsoft_tratado, xlab = "", ylab = "", main = "Retornos da ação da 
 # - H1: sem raiz unitária (não é um passeio aleatório)
 
 unit_root_microsoft <- adfTest(microsoft_tratado, lags = 2, type = c("nc"))
+print(unit_root_microsoft)
+
+unit_root_microsoft <- adfTest(microsoft_tratado, lags = 2, type = c("c"))
+print(unit_root_microsoft)
+
+unit_root_microsoft <- adfTest(microsoft_tratado, lags = 2, type = c("ct"))
 print(unit_root_microsoft)
 
 # Como resultado do teste temos um p-valor de 0.01 indicando que rejeitamos a hipótese nula de presença de raiz unitária ao nível de 5% de significância. Assim, continuamos com a série de

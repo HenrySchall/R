@@ -38,7 +38,6 @@ library(ipeadatar)
 library(sidrar) 
 library(stringr)
 
-
 # Instalando pacotes (Alternativa 1)
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(tidyverse)){install.packages("tidyverse")}

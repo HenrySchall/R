@@ -89,6 +89,8 @@ Exemplos:
 - Modelo ARMA: (4, 0, 1)
 - Modelo SARIMA: (1, 1, 2)(2, 0, 1)
 
+#### Akaike’s Information Criterion (AIC) e o Bayesian Information Criterion (BIC)
+Nos modelos mais avançados, as funções de autocorrelação e autocorrelação parcial não são informativas para definir a ordem dos modelos, por isso usasse um critério de informação. Um critério de informação é uma forma de encontrar o número ideal de parâmetros de um modelo, para entendê-lo, tenha em mente que, a cada regressor adicional, a soma dos resíduos não vai aumentar; frequentemente, diminuirá. A redução se dá à custa de mais regressores. Para balancear a redução dos erros e o aumento do número de regressores, o critério de informação associa uma penalidade a esse aumento. Sendo assim, sua equação apresenta duas partes: a primeira mede a qualidade do ajuste do modelo aos dados, enquanto a segunda parte é chamada de função de penalização dado que penaliza modelos com muitos parâmetros, sendo assim, dado todas as combinações de modelos procuramos aquele que apresenta menor AIC.
 
 
 

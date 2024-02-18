@@ -33,7 +33,7 @@ plot(serie)
 ############
 
 series_ipeadata <- available_series()
-dplyr::filter(series_ipeadata,str_detect(source, stringr::regex("caged", ignore_case = TRUE)))
+filter(series_ipeadata,str_detect(source, stringr::regex("caged", ignore_case = TRUE)))
 View(series_ipeadata)
 
 #Selecionando a série desejada
